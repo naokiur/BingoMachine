@@ -26,6 +26,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
@@ -37,7 +38,7 @@
             tools:ignore="UselessParent">
 
             <Button
-                android:id="@+id/dummy_button"
+                android:id="@+id/button_roll_bingo"
                 style="?metaButtonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,6 +46,31 @@
                 android:text="@string/bingoroll" />
 
         </LinearLayout>
+    </FrameLayout>
+    <!--
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rolling"
+            android:visibility="gone"
+            android:background="#ffffff">-->
+    <FrameLayout
+        android:id="@+id/rolling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/rollingNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textStyle="bold|italic"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
     </FrameLayout>
 
 </FrameLayout>

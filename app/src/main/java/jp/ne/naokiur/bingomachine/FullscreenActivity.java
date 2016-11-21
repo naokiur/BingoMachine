@@ -138,7 +138,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
             while (term < 700) {
 //          while (term < 7000) {
-//                System.out.println(term);
                 for (int i = 1; i <= BingoNumber.MAX_BINGO_NUMBER; i++) {
                     handler.post(new RenderingRunnable(rollingNumber, String.valueOf(i)));
                 }
@@ -148,23 +147,8 @@ public class FullscreenActivity extends AppCompatActivity {
 
             }
 
-//            Random random = new Random();
-//            int rand = random.nextInt(49) + 1;
-//            System.out.println(rand);
-
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
-
-
-//            String currentNumber = ((TextView) findViewById(R.id.rollingNumber)).getText().toString();
-//            TextView currentNumberView = (TextView) findViewById(R.id.rollingNumber);
-//            currentNumberView.setText(currentNumber);
-//            currentNumberView.setText(rand);
-//            LinearLayout historyNumber = (LinearLayout)findViewById(R.id.historyNumber);
-
-//            handler.post(new RenderingRunnable(hisoryView, String.valueOf(hisoryView.getText().toString() + ", " + rand)));
             handler.post(new RenderingRunnable(hisoryView, bingoNumber.createHistoryNumbers(hisoryView.getText().toString())));
-//            System.out.println(currentNumberView);
-//            historyNumber.addView(currentNumberView);
         }
     }
 

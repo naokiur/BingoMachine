@@ -1,17 +1,20 @@
 package jp.ne.naokiur.bingomachine;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Random;
+
+import jp.ne.naokiur.bingomachine.service.BingoNumberService;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -35,12 +38,8 @@ public class FullscreenActivity extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
-    private final Handler mHideHandler = new Handler();
+    private final Handler handler = new Handler();
     private View mContentView;
-    private static Handler mHandler;
-    private Activity activity;
-    private TextView mRollingNumber;
-    private View mRolling;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -109,6 +108,23 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     }
 
+    private class AddingRunnable implements Runnable {
+        private final LinearLayout parentView;
+        private final TextView targetView;
+
+        private AddingRunnable(LinearLayout parentView, TextView targetView) {
+            this.parentView = parentView;
+            this.targetView = targetView;
+        }
+
+        @Override
+        public void run() {
+            this.parentView.addView(targetView);
+            this.parentView.invalidate();
+
+        }
+    }
+
     private class RollingThread extends Thread {
 
         @Override
@@ -118,409 +134,57 @@ public class FullscreenActivity extends AppCompatActivity {
             long beginTime = Calendar.getInstance().getTimeInMillis();
             long endTime = beginTime;
             long term = endTime - beginTime;
-            while (term < 7000) {
-                System.out.println(term);
+            while (term < 700) {
+//          while (term < 7000) {
+//                System.out.println(term);
                 for (int i = 1; i <= 50; i++) {
-//                    new TextRenderingThread(rollingNumber, String.valueOf(i)).start();
-                    mHandler.post(new RenderingRunnable(rollingNumber, String.valueOf(i)));
+                    handler.post(new RenderingRunnable(rollingNumber, String.valueOf(i)));
                 }
 
                 endTime = Calendar.getInstance().getTimeInMillis();
                 term = endTime - beginTime;
 
             }
+
+//            Random random = new Random();
+//            int rand = random.nextInt(49) + 1;
+//            System.out.println(rand);
+            TextView hisoryView = (TextView) findViewById(R.id.historyNumberText);
+
+            BingoNumberService service = new BingoNumberService();
+            handler.post(new RenderingRunnable(rollingNumber, service.createHistoryNumbers(hisoryView.getText().toString())));
+
+
+//            String currentNumber = ((TextView) findViewById(R.id.rollingNumber)).getText().toString();
+//            TextView currentNumberView = (TextView) findViewById(R.id.rollingNumber);
+//            currentNumberView.setText(currentNumber);
+//            currentNumberView.setText(rand);
+//            LinearLayout historyNumber = (LinearLayout)findViewById(R.id.historyNumber);
+
+//            handler.post(new RenderingRunnable(hisoryView, String.valueOf(hisoryView.getText().toString() + ", " + rand)));
+            handler.post(new RenderingRunnable(hisoryView, service.createHistoryNumbers(hisoryView.getText().toString())));
+//            System.out.println(currentNumberView);
+//            historyNumber.addView(currentNumberView);
         }
     }
 
-
-    private class TextRenderingThread extends Thread {
-        private final TextView targetView;
-        private final String text;
-
-        //        private TextRenderingThread(Handler handler, TextView targetView, String text) {
-//            this.handler = handler;
-//            this.targetView = targetView;
-//            this.text = text;
-//        }
-        private TextRenderingThread(TextView targetView, String text) {
-            this.targetView = targetView;
-            this.text = text;
-        }
-
-        @Override
-        public void run() {
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    targetView.setText(text);
-
-                    FrameLayout parentLayout = (FrameLayout) targetView.getParent();
-                    FrameLayout rolling = (FrameLayout) findViewById(R.id.rolling);
-                    targetView.invalidate();
-//
-//
-//
-//
-//
-//
-//
-//
-                    parentLayout.invalidate();
-                    rolling.invalidate();
-
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-        }
-
-    }
-
-    int number = 0;
-//    private  RollingHandler mHandler;
-//    private class RollingHandler extends Handler {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            mRollingNumber.invalidate();
-//            if (mHandler != null) {
-//
-//            }
-//        }
-//
-//        public void sleep(long mill) {
-//            removeMessages(0);
-//            sendMessageDelayed(obtainMessage(0), mill);
-//        }
-//    }
     private final View.OnClickListener rollBingoClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
-            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
             new RollingThread().start();
-
-//            long beginTime = Calendar.getInstance().getTimeInMillis();
-//            long endTime = beginTime;
-//            long term = endTime - beginTime;
-//            while (term < 700) {
-//                System.out.println(term);
-
-//                for (int i = 1; i <= 50; i++) {
-//                    number = i;
-
-//                    new Thread(new Runnable() {
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-//                            mHandler.post(new Runnable() {
-//                                @Override
-//                                public void run() {
-////                            try {
-////                                Thread.sleep(200);
-////                            } catch (InterruptedException e) {
-////                                e.printStackTrace();
-////                            }
-//                                    for (int i = 1; i <= 50; i++) {
-//                                        mRollingNumber.setText(String.valueOf(i));
-//                                        mRollingNumber.invalidate();
-//                                        mRolling.invalidate();
-//
-//                                    }
-//
-////                            activity.runOnUiThread(new Runnable() {
-////                                @Override
-////                                public void run() {
-////                                    mRollingNumber.setText(number);
-////                                    mRollingNumber.invalidate();
-////                                }
-////                            });
-//                                }
-//
-//                            });
-//                        }
-//                    }.start();
-////                }
-//
-//                endTime = Calendar.getInstance().getTimeInMillis();
-//                term = endTime - beginTime;
-//
-//            }
-//            mHandler.removeCallbacksAndMessages(null);
-
-//                for (int i = 1; i <= 50; i++) {
-//                    number = i;
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-//                            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                            try {
-//                                Thread.sleep(100);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-////                            mHandler.post(new Runnable() {
-////                                @Override
-////                                public void run() {
-////                                    FrameLayout rolling = (FrameLayout) findViewById(R.id.rolling);
-////                                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-////                                    rollingNumber.setText("a");
-////                                    rollingNumber.invalidate();
-////                                    rolling.invalidate();
-////
-////                                }
-////                            });
-//                            mHandler.post(new RenderingRunnable(rollingNumber, String.valueOf(number)));
-//
-//                        }
-//                    }.start();
-//                    endTime = Calendar.getInstance().getTimeInMillis();
-//                    term = endTime - beginTime;
-//                    System.out.println(term);
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-//                            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                            mHandler.post(new RenderingRunnable(rollingNumber, String.valueOf(number)));
-//
-//                        }
-//                    }.start();
-//                }
-//            }
-//            activity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                            FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                            rollingNumber.setText("aaa");
-//                            rollingNumber.invalidate();
-//                            rolling.invalidate();
-//
-//                }
-//            });
-//
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//            activity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                    FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                    rollingNumber.setText("ccc");
-//                    rollingNumber.invalidate();
-//                    rolling.invalidate();
-//
-//                }
-//            });
-
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//
-//                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                    FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                    rollingNumber.setText("222");
-//                    rollingNumber.invalidate();
-//                    rolling.invalidate();
-//
-//                }
-//            });
-//
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                    FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                    rollingNumber.setText("111");
-//                    rollingNumber.invalidate();
-//                    rolling.invalidate();
-//
-//                }
-//            });
-//
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                    FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                    rollingNumber.setText("000");
-//                    rollingNumber.invalidate();
-//                    rolling.invalidate();
-//
-//                }
-//            });
-//
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    mHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                            FrameLayout rolling= (FrameLayout) findViewById(R.id.rolling);
-//                            rollingNumber.setText("aaa");
-//                            rollingNumber.invalidate();
-//                            rolling.invalidate();
-//
-//                        }
-//                    });
-//
-//                }
-//            }.start();
-//            System.out.println("totyu");
-//
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        Thread.sleep(2000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    mHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                            rollingNumber.setText("bbb");
-//                            rollingNumber.invalidate();
-//
-//                        }
-//                    });
-//
-//                }
-//            }.start();
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            mHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//                    rollingNumber.setText("ccc");
-//                    rollingNumber.invalidate();
-//
-//                }
-//            });
-            System.out.println("End");
-
-
-//            mHandler = new Handler();
-//            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//
-//            long beginTime = Calendar.getInstance().getTimeInMillis();
-//            long endTime = beginTime;
-//            long term = endTime - beginTime;
-//            while (term < 7000) {
-//                for (int i = 1; i <= 50; i++) {
-////                    new TextRenderingThread(mHandler, rollingNumber, String.valueOf(i)).start();
-//
-//                    new TextRenderingThread(rollingNumber, String.valueOf(i)).start();
-//                }
-//
-//                endTime = Calendar.getInstance().getTimeInMillis();
-//                term = endTime - beginTime;
-//                System.out.println(term);
-//            }
-            System.out.println("End");
-//
-//
-//
-//            FrameLayout rolling = (FrameLayout) findViewById(R.id.rolling);
-//            TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
-//            long beginTime = Calendar.getInstance().getTimeInMillis();
-//            long endTime = beginTime;
-//            long term = endTime - beginTime;
-//
-//            while (term < 700) {
-//                                for (int i = 1; i <= 50; i++) {
-//            new Thread() {
-//                @Override
-//                public void run() {
-//                    mHandler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                                    rollingNumber.setText(String.valueOf(3).toString());
-//                                    System.out.println("First");
-//                                    rollingNumber.invalidate();
-//                                    rolling.invalidate();
-//                                    endTime = Calendar.getInstance().getTimeInMillis();
-//                                    term = endTime - beginTime;
-////                                }
-//
-//                            }
-//                    });
-//                }
-//            }.start();
-//
-//                                }
-//
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity = this;
-        mHandler = new Handler();
 
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-        mRolling = findViewById(R.id.rolling);
-        mRollingNumber = (TextView) findViewById(R.id.rollingNumber);
 
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
@@ -530,34 +194,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-//        mHandler = new RollingHandler();
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
         findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
-
-        mRollingNumber.setText("aa");
-        mRollingNumber.invalidate();
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mRollingNumber.setText("bbb");
-//                        mRollingNumber.invalidate();
-//                    }
-//                });
-//            }
-//
-//        }).start();
 
     }
 
@@ -590,8 +227,8 @@ public class FullscreenActivity extends AppCompatActivity {
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+        handler.removeCallbacks(mShowPart2Runnable);
+        handler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
     @SuppressLint("InlinedApi")
@@ -602,8 +239,8 @@ public class FullscreenActivity extends AppCompatActivity {
         mVisible = true;
 
         // Schedule a runnable to display UI elements after a delay
-        mHideHandler.removeCallbacks(mHidePart2Runnable);
-        mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
+        handler.removeCallbacks(mHidePart2Runnable);
+        handler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
     /**
@@ -611,7 +248,7 @@ public class FullscreenActivity extends AppCompatActivity {
      * previously scheduled calls.
      */
     private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+        handler.removeCallbacks(mHideRunnable);
+        handler.postDelayed(mHideRunnable, delayMillis);
     }
 }

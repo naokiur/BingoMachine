@@ -1,7 +1,6 @@
 package jp.ne.naokiur.bingomachine;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,9 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
-import java.util.Random;
 
-import jp.ne.naokiur.bingomachine.service.BingoNumberService;
+import jp.ne.naokiur.bingomachine.service.BingoNumber;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -134,10 +132,14 @@ public class FullscreenActivity extends AppCompatActivity {
             long beginTime = Calendar.getInstance().getTimeInMillis();
             long endTime = beginTime;
             long term = endTime - beginTime;
+
+            TextView hisoryView = (TextView) findViewById(R.id.historyNumberText);
+            BingoNumber bingoNumber = new BingoNumber(hisoryView.getText().toString());
+
             while (term < 700) {
 //          while (term < 7000) {
 //                System.out.println(term);
-                for (int i = 1; i <= 50; i++) {
+                for (int i = 1; i <= BingoNumber.MAX_BINGO_NUMBER; i++) {
                     handler.post(new RenderingRunnable(rollingNumber, String.valueOf(i)));
                 }
 
@@ -149,10 +151,8 @@ public class FullscreenActivity extends AppCompatActivity {
 //            Random random = new Random();
 //            int rand = random.nextInt(49) + 1;
 //            System.out.println(rand);
-            TextView hisoryView = (TextView) findViewById(R.id.historyNumberText);
 
-            BingoNumberService service = new BingoNumberService();
-            handler.post(new RenderingRunnable(rollingNumber, service.createHistoryNumbers(hisoryView.getText().toString())));
+            handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
 
 
 //            String currentNumber = ((TextView) findViewById(R.id.rollingNumber)).getText().toString();
@@ -162,7 +162,7 @@ public class FullscreenActivity extends AppCompatActivity {
 //            LinearLayout historyNumber = (LinearLayout)findViewById(R.id.historyNumber);
 
 //            handler.post(new RenderingRunnable(hisoryView, String.valueOf(hisoryView.getText().toString() + ", " + rand)));
-            handler.post(new RenderingRunnable(hisoryView, service.createHistoryNumbers(hisoryView.getText().toString())));
+            handler.post(new RenderingRunnable(hisoryView, bingoNumber.createHistoryNumbers(hisoryView.getText().toString())));
 //            System.out.println(currentNumberView);
 //            historyNumber.addView(currentNumberView);
         }

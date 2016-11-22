@@ -68,6 +68,15 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
 
+    private final View.OnClickListener resetClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            ((TextView) findViewById(R.id.rollingNumber)).setText("");
+            ((TextView) findViewById(R.id.historyNumberText)).setText("");
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +84,7 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
 
         findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
+        findViewById(R.id.reset).setOnClickListener(resetClickListener);
 
     }
 }

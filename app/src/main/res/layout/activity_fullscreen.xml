@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/reset"
-                android:id="@+id/reset"
+                android:id="@+id/button_reset"
                 android:paddingTop="25dp"
                 android:paddingBottom="25dp" />
         </LinearLayout>
@@ -66,12 +66,12 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/historyNumber">
+            android:id="@+id/layout_history_number">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/historyNumberText" />
+                android:id="@+id/text_history_number" />
         </LinearLayout>
 
     </FrameLayout>
@@ -90,7 +90,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/rollingNumber"
+            android:id="@+id/text_rolling_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"

@@ -35,13 +35,13 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            final TextView rollingNumber = (TextView) findViewById(R.id.rollingNumber);
+            final TextView rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
 
             long beginTime = Calendar.getInstance().getTimeInMillis();
             long endTime = beginTime;
             long term = endTime - beginTime;
 
-            TextView hisoryView = (TextView) findViewById(R.id.historyNumberText);
+            TextView hisoryView = (TextView) findViewById(R.id.text_history_number);
             BingoNumber bingoNumber = new BingoNumber(hisoryView.getText().toString());
 
             while (term < 700) {
@@ -72,8 +72,8 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            ((TextView) findViewById(R.id.rollingNumber)).setText("");
-            ((TextView) findViewById(R.id.historyNumberText)).setText("");
+            ((TextView) findViewById(R.id.text_rolling_number)).setText("");
+            ((TextView) findViewById(R.id.text_history_number)).setText("");
         }
     };
 
@@ -84,7 +84,7 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
 
         findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
-        findViewById(R.id.reset).setOnClickListener(resetClickListener);
+        findViewById(R.id.button_reset).setOnClickListener(resetClickListener);
 
     }
 }

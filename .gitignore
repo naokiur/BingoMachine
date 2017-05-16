@@ -32,6 +32,8 @@ proguard/
 
 # Android Studio captures folder
 captures/
+projectFilesBackup/
+app.iml
 
 # Intellij
 *.iml
@@ -45,3 +47,4 @@ captures/
 .DS_Store
 .AppleDouble
 .LSOverride
+app/google-services.json

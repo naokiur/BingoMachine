@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.Calendar;
 
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
@@ -13,6 +17,7 @@ import jp.ne.naokiur.bingomachine.service.BingoNumber;
 public class FullscreenActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
+//    private Adview mAdView;
 
     private class RenderingRunnable implements Runnable {
         private final TextView targetView;
@@ -85,6 +90,12 @@ public class FullscreenActivity extends AppCompatActivity {
 
         findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
         findViewById(R.id.button_reset).setOnClickListener(resetClickListener);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544/6300978111");
+//
+        AdView adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
     }
 }

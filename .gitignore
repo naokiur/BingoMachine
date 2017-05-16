@@ -47,3 +47,5 @@ app.iml
 .DS_Store
 .AppleDouble
 .LSOverride
+
+app/google-services.json

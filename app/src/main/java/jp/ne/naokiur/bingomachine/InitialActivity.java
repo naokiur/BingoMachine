@@ -1,5 +1,6 @@
 package jp.ne.naokiur.bingomachine;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,11 @@ public class InitialActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
+                    requestNewIntential();
+                    startBingo();
+
+                } else {
+                    startBingo();
 
                 }
             }
@@ -48,5 +54,9 @@ public class InitialActivity extends AppCompatActivity {
         interstitialAd.loadAd(adRequest);
     }
 
+    private void startBingo() {
+
+        startActivity(new Intent(this, FullscreenActivity.class));
+    }
 
 }

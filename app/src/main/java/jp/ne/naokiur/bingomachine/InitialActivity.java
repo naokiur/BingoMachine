@@ -13,7 +13,6 @@ import com.google.android.gms.ads.InterstitialAd;
 public class InitialActivity extends AppCompatActivity {
     InterstitialAd interstitialAd;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,28 +21,26 @@ public class InitialActivity extends AppCompatActivity {
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                requestNewInterstitial();
-            }
-        });
-
         requestNewInterstitial();
 
         Button button = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getBaseContext(), FullscreenActivity.class));
+
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
                     requestNewInterstitial();
-                    startBingo();
-
-                } else {
-                    startBingo();
 
                 }
+            }
+        });
+
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
             }
         });
     }
@@ -53,9 +50,4 @@ public class InitialActivity extends AppCompatActivity {
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID").build();
         interstitialAd.loadAd(adRequest);
     }
-
-    private void startBingo() {
-        startActivity(new Intent(this, FullscreenActivity.class));
-    }
-
 }

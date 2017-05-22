@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.MobileAds;
-
 import java.util.Calendar;
 
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
@@ -81,8 +79,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);

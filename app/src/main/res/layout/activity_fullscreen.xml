@@ -94,11 +94,12 @@
             android:id="@+id/text_rolling_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#0099cc"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:textSize="40sp"
+            android:textSize="80sp"
             android:textStyle="bold|italic" />
     </FrameLayout>
 </FrameLayout>

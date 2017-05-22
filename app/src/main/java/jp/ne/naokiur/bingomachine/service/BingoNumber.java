@@ -10,14 +10,12 @@ import java.util.Random;
  * Created by nao-ur on 2016/11/21.
  */
 public class BingoNumber {
-//    public static final int MAX_BINGO_NUMBER = 50;
+    //    public static final int MAX_BINGO_NUMBER = 50;
     public static final int MAX_BINGO_NUMBER = 10;
     private Random random;
     private int number;
 
     /**
-     *
-     *
      * @param viewText Split comma
      * @return Result view
      */
@@ -26,7 +24,7 @@ public class BingoNumber {
 
         String[] historyNumberArray = viewText.split(", ");
         List<Integer> historyNumberList = new ArrayList<>();
-        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]) ; i++) {
+        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]); i++) {
             historyNumberList.add(Integer.valueOf(historyNumberArray[i]));
         }
 
@@ -43,10 +41,10 @@ public class BingoNumber {
         return number;
     }
 
-    public  String createHistoryNumbers(String viewText) {
+    public String createHistoryNumbers(String viewText) {
         String[] historyNumberArray = viewText.split(", ");
         List<Integer> historyNumberList = new ArrayList<>();
-        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]) ; i++) {
+        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]); i++) {
             historyNumberList.add(Integer.valueOf(historyNumberArray[i]));
         }
 
@@ -63,6 +61,6 @@ public class BingoNumber {
     }
 
     private Integer createRandom() {
-        return  random.nextInt(MAX_BINGO_NUMBER) + 1;
+        return random.nextInt(MAX_BINGO_NUMBER) + 1;
     }
 }

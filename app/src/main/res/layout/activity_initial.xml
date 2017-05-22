@@ -11,7 +11,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="スタート"
+        android:text="@string/begin_button"
         tools:layout_editor_absoluteX="2dp"
         tools:layout_editor_absoluteY="5dp" />
 </android.support.constraint.ConstraintLayout>

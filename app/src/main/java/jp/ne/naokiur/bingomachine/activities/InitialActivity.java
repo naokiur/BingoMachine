@@ -1,4 +1,4 @@
-package jp.ne.naokiur.bingomachine;
+package jp.ne.naokiur.bingomachine.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+
+import jp.ne.naokiur.bingomachine.R;
 
 public class InitialActivity extends AppCompatActivity {
     InterstitialAd interstitialAd;

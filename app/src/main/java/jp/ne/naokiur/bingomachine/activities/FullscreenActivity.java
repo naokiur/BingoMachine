@@ -1,4 +1,4 @@
-package jp.ne.naokiur.bingomachine;
+package jp.ne.naokiur.bingomachine.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
 
 public class FullscreenActivity extends AppCompatActivity {

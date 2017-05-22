@@ -25,11 +25,11 @@ public class InitialActivity extends AppCompatActivity {
         interstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                requestNewIntential();
+                requestNewInterstitial();
             }
         });
 
-        requestNewIntential();
+        requestNewInterstitial();
 
         Button button = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +37,7 @@ public class InitialActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
-                    requestNewIntential();
+                    requestNewInterstitial();
                     startBingo();
 
                 } else {
@@ -48,14 +48,13 @@ public class InitialActivity extends AppCompatActivity {
         });
     }
 
-    private void requestNewIntential() {
+    private void requestNewInterstitial() {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID").build();
         interstitialAd.loadAd(adRequest);
     }
 
     private void startBingo() {
-
         startActivity(new Intent(this, FullscreenActivity.class));
     }
 

@@ -1,26 +1,20 @@
 package jp.ne.naokiur.bingomachine;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Calendar;
+
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
 
-import com.google.android.gms.ads.*;
-
 public class FullscreenActivity extends AppCompatActivity {
-    private InterstitialAd interstitial;
 
     private final Handler handler = new Handler();
-//    private Adview mAdView;
 
     private class RenderingRunnable implements Runnable {
         private final TextView targetView;
@@ -82,13 +76,6 @@ public class FullscreenActivity extends AppCompatActivity {
         public void onClick(View v) {
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
             ((TextView) findViewById(R.id.text_history_number)).setText("");
-
-//            if (interstitial.isLoaded()) {
-//                interstitial.show();
-//            }
-
-//            Intent intent = new Intent();
-//            getBaseContext().startActivity(intent);
         }
     };
 
@@ -102,40 +89,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
         findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
         findViewById(R.id.button_reset).setOnClickListener(resetClickListener);
-
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544/6300978111");
-//
-        AdView adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-////        // Create the interstitial.
-//        interstitial = new InterstitialAd(this);
-//        // This is a Test Unit ID.
-//        interstitial.setAdUnitId("ca-app-pub-3940256099942544~3347511713");
-//
-//        interstitial.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdClosed() {
-//                requestNewInterstitial();
-//            }
-//        });
-
-//        requestNewInterstitial();
     }
 
-//    private void requestNewInterstitial() {
-//        AdRequest adRequest = new AdRequest.Builder()
-//                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
-//                .build();
-//
-//        interstitial.loadAd(adRequest);
-//    }
-
-    // Invoke displayInterstitial() when you are ready to display an interstitial.
-//    public void displayInterstitial() {
-//        if (interstitial.isLoaded()) {
-//            interstitial.show();
-//        }
-//    }
 }

@@ -11,6 +11,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
 import jp.ne.naokiur.bingomachine.R;
+import jp.ne.naokiur.bingomachine.strage.DatabaseHelper;
 
 public class InitialActivity extends AppCompatActivity {
     InterstitialAd interstitialAd;
@@ -19,6 +20,9 @@ public class InitialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
+
+        DatabaseHelper helper = new DatabaseHelper(this);
+        helper.getWritableDatabase();
 
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");

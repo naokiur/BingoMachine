@@ -24,6 +24,7 @@ public class BingoNumber {
 
         String[] historyNumberArray = viewText.split(", ");
         List<Integer> historyNumberList = new ArrayList<>();
+
         for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]); i++) {
             historyNumberList.add(Integer.valueOf(historyNumberArray[i]));
         }

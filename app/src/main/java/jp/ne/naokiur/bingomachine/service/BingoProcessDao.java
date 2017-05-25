@@ -2,7 +2,11 @@ package jp.ne.naokiur.bingomachine.service;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.ne.naokiur.bingomachine.strage.BingoProcessTable;
 import jp.ne.naokiur.bingomachine.strage.DatabaseHelper;
@@ -28,5 +32,18 @@ public class BingoProcessDao {
         db.insert(BingoProcessTable.NAME, null, values);
 
         db.close();
+    }
+
+    public List<Integer> selectAll() {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + BingoProcessTable.NAME, null);
+
+        List<Integer> resultList = new ArrayList<>();
+
+        while (c.moveToNext()) {
+            resultList.add(c.getInt(1));
+        }
+
+        return resultList;
     }
 }

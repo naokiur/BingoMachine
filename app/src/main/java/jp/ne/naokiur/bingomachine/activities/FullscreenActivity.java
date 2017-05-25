@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
@@ -70,6 +71,7 @@ public class FullscreenActivity extends AppCompatActivity {
             long term = endTime - beginTime;
 
             TextView hisoryView = (TextView) findViewById(R.id.text_history_number);
+            List<Integer> historyList = bingoProcessDao.selectAll();
             BingoNumber bingoNumber = new BingoNumber(hisoryView.getText().toString());
 
             while (term < 700) {

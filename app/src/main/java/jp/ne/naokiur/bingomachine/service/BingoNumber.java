@@ -2,7 +2,6 @@ package jp.ne.naokiur.bingomachine.service;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,21 +15,14 @@ public class BingoNumber {
     private int number;
 
     /**
-     * @param viewText Split comma
+     * @param historyList already displayed numbers
      * @return Result view
      */
-    public BingoNumber(String viewText) {
+    public BingoNumber(List<Integer> historyList) {
         this.random = new Random();
 
-        String[] historyNumberArray = viewText.split(", ");
-        List<Integer> historyNumberList = new ArrayList<>();
-
-        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]); i++) {
-            historyNumberList.add(Integer.valueOf(historyNumberArray[i]));
-        }
-
         Integer candidateNumber = createRandom();
-        while (historyNumberList.contains(candidateNumber) && historyNumberList.size() < MAX_BINGO_NUMBER) {
+        while (historyList.contains(candidateNumber) && historyList.size() < MAX_BINGO_NUMBER) {
             candidateNumber = createRandom();
 
         }
@@ -42,23 +34,18 @@ public class BingoNumber {
         return number;
     }
 
-    public String createHistoryNumbers(String viewText) {
-        String[] historyNumberArray = viewText.split(", ");
-        List<Integer> historyNumberList = new ArrayList<>();
-        for (int i = 0; i < historyNumberArray.length && !StringUtils.isBlank(historyNumberArray[i]); i++) {
-            historyNumberList.add(Integer.valueOf(historyNumberArray[i]));
-        }
+    public String createHistoryNumbers(List<Integer> historyNumberList) {
 
         if (historyNumberList.size() >= MAX_BINGO_NUMBER) {
             return "";
         }
 
-        if (StringUtils.isEmpty(viewText)) {
-            return String.valueOf(this.number);
+        if (historyNumberList.isEmpty()) {
+            return "";
         }
 
 
-        return viewText + ", " + this.number;
+        return StringUtils.join(historyNumberList.toArray(), ",");
     }
 
     private Integer createRandom() {

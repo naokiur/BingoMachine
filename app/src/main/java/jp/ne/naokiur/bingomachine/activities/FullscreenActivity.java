@@ -85,7 +85,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
             bingoProcessDao.insert(bingoNumber.getNumber());
-
             handler.post(new RenderingRunnable(hisoryView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
         }
     }

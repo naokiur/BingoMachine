@@ -35,11 +35,6 @@ public class BingoNumber {
     }
 
     public String createHistoryNumbers(List<Integer> historyNumberList) {
-
-        if (historyNumberList.size() >= MAX_BINGO_NUMBER) {
-            return "";
-        }
-
         if (historyNumberList.isEmpty()) {
             return "";
         }

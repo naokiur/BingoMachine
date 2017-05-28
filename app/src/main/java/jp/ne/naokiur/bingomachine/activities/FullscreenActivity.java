@@ -70,7 +70,7 @@ public class FullscreenActivity extends AppCompatActivity {
             long endTime = beginTime;
             long term = endTime - beginTime;
 
-            TextView hisoryView = (TextView) findViewById(R.id.text_history_number);
+            TextView historyView = (TextView) findViewById(R.id.text_history_number);
             BingoNumber bingoNumber = new BingoNumber(bingoProcessDao.selectAll());
 
             while (term < 700) {
@@ -86,7 +86,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
             bingoProcessDao.insert(bingoNumber.getNumber());
-            handler.post(new RenderingRunnable(hisoryView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
+            handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
         }
     }
 

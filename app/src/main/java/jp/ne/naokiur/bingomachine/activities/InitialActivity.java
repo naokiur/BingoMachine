@@ -25,7 +25,7 @@ public class InitialActivity extends AppCompatActivity {
         helper.getWritableDatabase();
 
         interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
 
         requestNewInterstitial();
 

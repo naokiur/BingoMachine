@@ -28,7 +28,6 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             new RollingThread().start();
-
         }
     };
 
@@ -72,6 +71,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void run() {
+            handler.post(new SwitchRunnable());
 
             long beginTime = Calendar.getInstance().getTimeInMillis();
             long endTime = beginTime;
@@ -118,7 +118,7 @@ public class FullscreenActivity extends AppCompatActivity {
         if (historyList.size() >= BingoNumber.MAX_BINGO_NUMBER) {
             bingo.setEnabled(false);
         } else {
-            bingo.setEnabled(true);
+            bingo.setEnabled(!bingo.isEnabled());
 
         }
     }

@@ -18,6 +18,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
     private Button bingo;
     private Button reset;
+    private TextView rollingNumber;
 
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
@@ -27,6 +28,7 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             new RollingThread().start();
+
         }
     };
 
@@ -70,7 +72,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            final TextView rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
 
             long beginTime = Calendar.getInstance().getTimeInMillis();
             long endTime = beginTime;
@@ -93,7 +94,6 @@ public class FullscreenActivity extends AppCompatActivity {
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
             bingoProcessDao.insert(bingoNumber.getNumber());
             handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
-            // TODO Cannot disabled bingo button when numbers is already max value, because I think that this problem is Thread.
             handler.post(new SwitchRunnable());
         }
     }
@@ -104,6 +104,8 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
         bingo = (Button) findViewById(R.id.button_roll_bingo);
         reset = (Button) findViewById(R.id.button_reset);
+        rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
+
         switchEnableBingoRollButton();
 
         bingo.setOnClickListener(rollBingoClickListener);
@@ -113,7 +115,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private void switchEnableBingoRollButton() {
         List<Integer> historyList = bingoProcessDao.selectAll();
 
-        if (historyList.size() > BingoNumber.MAX_BINGO_NUMBER) {
+        if (historyList.size() >= BingoNumber.MAX_BINGO_NUMBER) {
             bingo.setEnabled(false);
         } else {
             bingo.setEnabled(true);

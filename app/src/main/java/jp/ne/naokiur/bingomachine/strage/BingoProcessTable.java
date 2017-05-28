@@ -15,7 +15,7 @@ public enum BingoProcessTable implements BaseColumns {
         return "CREATE TABLE "
                 + NAME + " ("
                 + _ID + " INTEGER PRIMARY KEY,"
-                + VALUE + " INTEGERexit" +
+                + VALUE + " INTEGER" +
                 ")";
     }
 }

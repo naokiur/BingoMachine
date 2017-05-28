@@ -27,6 +27,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            bingoProcessDao.deleteAll();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
             ((TextView) findViewById(R.id.text_history_number)).setText("");
         }

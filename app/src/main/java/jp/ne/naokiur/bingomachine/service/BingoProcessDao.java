@@ -46,4 +46,10 @@ public class BingoProcessDao {
 
         return resultList;
     }
+
+    public void deleteAll() {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        db.delete(BingoProcessTable.NAME, null, null);
+    }
 }

@@ -9,13 +9,13 @@ import android.provider.BaseColumns;
 public enum BingoProcessTable implements BaseColumns {
     VALUE;
 
-    public static final String NAME  = "BINGO_PROCESS";
+    public static final String NAME = "BINGO_PROCESS";
 
     public static String generateCreateTable() {
         return "CREATE TABLE "
-                    + NAME + " ("
-                        + _ID + " INTEGER PRIMARY KEY,"
-                        + VALUE + " INTEGERexit" +
-                        ")";
+                + NAME + " ("
+                + _ID + " INTEGER PRIMARY KEY,"
+                + VALUE + " INTEGERexit" +
+                ")";
     }
 }

@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
@@ -14,8 +16,12 @@ import jp.ne.naokiur.bingomachine.service.BingoProcessDao;
 
 public class FullscreenActivity extends AppCompatActivity {
 
+    private Button bingo;
+    private Button reset;
+
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
+
     private final View.OnClickListener rollBingoClickListener = new View.OnClickListener() {
 
         @Override
@@ -23,24 +29,24 @@ public class FullscreenActivity extends AppCompatActivity {
             new RollingThread().start();
         }
     };
+
     private final View.OnClickListener resetClickListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
             bingoProcessDao.deleteAll();
+            switchEnableBingoRollButton();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
             ((TextView) findViewById(R.id.text_history_number)).setText("");
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private class SwitchRunnable implements Runnable {
 
-        setContentView(R.layout.activity_fullscreen);
-
-        findViewById(R.id.button_roll_bingo).setOnClickListener(rollBingoClickListener);
-        findViewById(R.id.button_reset).setOnClickListener(resetClickListener);
+        @Override
+        public void run() {
+            switchEnableBingoRollButton();
+        }
     }
 
     private class RenderingRunnable implements Runnable {
@@ -87,6 +93,31 @@ public class FullscreenActivity extends AppCompatActivity {
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
             bingoProcessDao.insert(bingoNumber.getNumber());
             handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
+            // TODO Cannot disabled bingo button when numbers is already max value, because I think that this problem is Thread.
+            handler.post(new SwitchRunnable());
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fullscreen);
+        bingo = (Button) findViewById(R.id.button_roll_bingo);
+        reset = (Button) findViewById(R.id.button_reset);
+        switchEnableBingoRollButton();
+
+        bingo.setOnClickListener(rollBingoClickListener);
+        reset.setOnClickListener(resetClickListener);
+    }
+
+    private void switchEnableBingoRollButton() {
+        List<Integer> historyList = bingoProcessDao.selectAll();
+
+        if (historyList.size() > BingoNumber.MAX_BINGO_NUMBER) {
+            bingo.setEnabled(false);
+        } else {
+            bingo.setEnabled(true);
+
         }
     }
 

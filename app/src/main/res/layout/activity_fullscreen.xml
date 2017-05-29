@@ -5,21 +5,6 @@
     android:background="#0099cc"
     tools:context="jp.ne.naokiur.bingomachine.activities.FullscreenActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:keepScreenOn="true"
-        android:textColor="#33b5e5"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,18 +46,48 @@
                 android:text="@string/bingo_roll" />
 
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/layout_history_number"
+            android:id="@+id/layout_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
+                android:id="@+id/layout_history_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
                 android:id="@+id/text_history_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_current_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_rolling_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="#0099cc"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:textSize="80sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
         </LinearLayout>
+
 
     </FrameLayout>
     <!--
@@ -82,23 +97,11 @@
             android:id="@+id/rolling"
             android:visibility="gone"
             android:background="#ffffff">-->
-    <FrameLayout
-        android:id="@+id/rolling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#ffffff">
-
-        <TextView
-            android:id="@+id/text_rolling_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#0099cc"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
-            android:textSize="80sp"
-            android:textStyle="bold|italic" />
-    </FrameLayout>
+    <!--<FrameLayout-->
+    <!--android:id="@+id/rolling"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="#ffffff">-->
+    <!--</FrameLayout>-->
 </FrameLayout>

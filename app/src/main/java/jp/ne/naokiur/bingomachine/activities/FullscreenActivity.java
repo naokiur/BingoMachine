@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -47,6 +49,23 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void run() {
             switchEnableBingoRollButton();
+        }
+    }
+
+    private class HistoryRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.layout_history_number);
+            List<Integer> historyList = bingoProcessDao.selectAll();
+
+            layout.removeAllViews();
+
+            for (Integer history : historyList) {
+                TextView view = new TextView(getBaseContext());
+                view.setText(String.valueOf(history));
+                layout.addView(view);
+            }
         }
     }
 
@@ -93,8 +112,11 @@ public class FullscreenActivity extends AppCompatActivity {
 
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
             bingoProcessDao.insert(bingoNumber.getNumber());
-            handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
+
+//            bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll());
+//            handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
             handler.post(new SwitchRunnable());
+            handler.post(new HistoryRunnable());
         }
     }
 

@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -56,16 +56,9 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            LinearLayout layout = (LinearLayout) findViewById(R.id.layout_history_number);
-            List<Integer> historyList = bingoProcessDao.selectAll();
+            TextView historyView = (TextView) findViewById(R.id.text_history_number);
 
-            layout.removeAllViews();
-
-            for (Integer history : historyList) {
-                TextView view = new TextView(getBaseContext());
-                view.setText(String.valueOf(history));
-                layout.addView(view);
-            }
+            historyView.setText(StringUtils.join(bingoProcessDao.selectAll(), ","));
         }
     }
 

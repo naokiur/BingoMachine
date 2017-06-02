@@ -58,7 +58,7 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             TextView historyView = (TextView) findViewById(R.id.text_history_number);
 
-            historyView.setText(StringUtils.join(bingoProcessDao.selectAll(), ","));
+            historyView.setText(StringUtils.join(bingoProcessDao.selectAll(), " "));
         }
     }
 

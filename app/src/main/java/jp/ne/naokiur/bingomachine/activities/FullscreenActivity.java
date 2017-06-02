@@ -121,8 +121,6 @@ public class FullscreenActivity extends AppCompatActivity {
         reset = (Button) findViewById(R.id.button_reset);
         rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
 
-        switchEnableBingoRollButton();
-
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);
     }

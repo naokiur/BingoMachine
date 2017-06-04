@@ -9,8 +9,7 @@ import java.util.Random;
  * Created by nao-ur on 2016/11/21.
  */
 public class BingoNumber {
-    //    public static final int MAX_BINGO_NUMBER = 50;
-    public static final int MAX_BINGO_NUMBER = 10;
+    private final int maxNumber;
     private Random random;
     private int number;
 
@@ -18,11 +17,12 @@ public class BingoNumber {
      * @param historyList already displayed numbers
      * @return Result view
      */
-    public BingoNumber(List<Integer> historyList) {
+    public BingoNumber(List<Integer> historyList, Integer maxNumber) {
+        this.maxNumber = maxNumber;
         this.random = new Random();
 
         Integer candidateNumber = createRandom();
-        while (historyList.contains(candidateNumber) && historyList.size() < MAX_BINGO_NUMBER) {
+        while (historyList.contains(candidateNumber) && historyList.size() < this.maxNumber) {
             candidateNumber = createRandom();
 
         }
@@ -44,6 +44,6 @@ public class BingoNumber {
     }
 
     private Integer createRandom() {
-        return random.nextInt(MAX_BINGO_NUMBER) + 1;
+        return random.nextInt(maxNumber) + 1;
     }
 }

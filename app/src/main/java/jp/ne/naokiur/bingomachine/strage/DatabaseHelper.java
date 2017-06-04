@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(BingoProcessTable.generateCreateTable());
+        db.execSQL(BingoGameTable.generateCreateTable());
 
     }
 

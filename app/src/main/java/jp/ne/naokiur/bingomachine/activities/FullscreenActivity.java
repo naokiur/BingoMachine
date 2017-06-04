@@ -1,5 +1,6 @@
 package jp.ne.naokiur.bingomachine.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import jp.ne.naokiur.bingomachine.service.BingoProcessDao;
 
 public class FullscreenActivity extends AppCompatActivity {
 
+    private Integer maxNumber;
+    private long gameId;
     private Button bingo;
     private Button reset;
     private TextView rollingNumber;
@@ -58,7 +61,7 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             TextView historyView = (TextView) findViewById(R.id.text_history_number);
 
-            historyView.setText(StringUtils.join(bingoProcessDao.selectAll(), " "));
+            historyView.setText(StringUtils.join(bingoProcessDao.selectByGameId(gameId), " "));
         }
     }
 
@@ -90,11 +93,11 @@ public class FullscreenActivity extends AppCompatActivity {
             long term = endTime - beginTime;
 
             TextView historyView = (TextView) findViewById(R.id.text_history_number);
-            BingoNumber bingoNumber = new BingoNumber(bingoProcessDao.selectAll());
+            BingoNumber bingoNumber = new BingoNumber(bingoProcessDao.selectByGameId(gameId), maxNumber);
 
             while (term < 700) {
 //          while (term < 7000) {
-                for (int i = 1; i <= BingoNumber.MAX_BINGO_NUMBER; i++) {
+                for (int i = 1; i <= maxNumber; i++) {
                     handler.post(new RenderingRunnable(rollingNumber, String.valueOf(i)));
                 }
 
@@ -104,7 +107,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
 
             handler.post(new RenderingRunnable(rollingNumber, String.valueOf(bingoNumber.getNumber())));
-            bingoProcessDao.insert(bingoNumber.getNumber());
+            bingoProcessDao.insert(gameId, bingoNumber.getNumber());
 
 //            bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll());
 //            handler.post(new RenderingRunnable(historyView, bingoNumber.createHistoryNumbers(bingoProcessDao.selectAll())));
@@ -117,6 +120,10 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
+        Intent intent = getIntent();
+
+        maxNumber = intent.getIntExtra("maxNumber", 0);
+        gameId = intent.getLongExtra("gameId", 0);
         bingo = (Button) findViewById(R.id.button_roll_bingo);
         reset = (Button) findViewById(R.id.button_reset);
         rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
@@ -126,9 +133,9 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
     private void switchEnableBingoRollButton() {
-        List<Integer> historyList = bingoProcessDao.selectAll();
+        List<Integer> historyList = bingoProcessDao.selectByGameId(gameId);
 
-        if (historyList.size() >= BingoNumber.MAX_BINGO_NUMBER) {
+        if (historyList.size() >= maxNumber) {
             bingo.setEnabled(false);
         } else {
             bingo.setEnabled(!bingo.isEnabled());

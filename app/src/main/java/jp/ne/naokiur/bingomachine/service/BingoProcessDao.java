@@ -23,10 +23,11 @@ public class BingoProcessDao {
 
     }
 
-    public void insert(Integer value) {
+    public void insert(long gameId, Integer value) {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(BingoProcessTable.GAME_ID.name(), gameId);
         values.put(BingoProcessTable.VALUE.name(), value);
 
         db.insert(BingoProcessTable.NAME, null, values);
@@ -41,7 +42,23 @@ public class BingoProcessDao {
         List<Integer> resultList = new ArrayList<>();
 
         while (c.moveToNext()) {
-            resultList.add(c.getInt(1));
+            resultList.add(c.getInt(2));
+        }
+
+        return resultList;
+    }
+
+    public List<Integer> selectByGameId(long gameId) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM "
+                        + BingoProcessTable.NAME
+                + " WHERE "
+                    + BingoProcessTable.GAME_ID.name() + " = " + gameId + ";", null);
+
+        List<Integer> resultList = new ArrayList<>();
+
+        while (c.moveToNext()) {
+            resultList.add(c.getInt(2));
         }
 
         return resultList;

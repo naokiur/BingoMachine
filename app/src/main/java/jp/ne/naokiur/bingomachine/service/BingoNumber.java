@@ -34,15 +34,6 @@ public class BingoNumber {
         return number;
     }
 
-    public String createHistoryNumbers(List<Integer> historyNumberList) {
-        if (historyNumberList.isEmpty()) {
-            return "";
-        }
-
-
-        return StringUtils.join(historyNumberList.toArray(), ",");
-    }
-
     private Integer createRandom() {
         return random.nextInt(maxNumber) + 1;
     }

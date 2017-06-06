@@ -35,19 +35,6 @@ public class BingoProcessDao {
         db.close();
     }
 
-    public List<Integer> selectAll() {
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + BingoProcessTable.NAME, null);
-
-        List<Integer> resultList = new ArrayList<>();
-
-        while (c.moveToNext()) {
-            resultList.add(c.getInt(2));
-        }
-
-        return resultList;
-    }
-
     public List<Integer> selectByGameId(long gameId) {
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM "

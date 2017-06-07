@@ -91,21 +91,5 @@
                     android:textStyle="bold|italic" />
             </LinearLayout>
         </LinearLayout>
-
-
     </FrameLayout>
-    <!--
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rolling"
-            android:visibility="gone"
-            android:background="#ffffff">-->
-    <!--<FrameLayout-->
-    <!--android:id="@+id/rolling"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:background="#ffffff">-->
-    <!--</FrameLayout>-->
 </FrameLayout>

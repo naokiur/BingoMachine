@@ -1,7 +1,5 @@
 package jp.ne.naokiur.bingomachine.service;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.List;
 import java.util.Random;
 
@@ -34,6 +32,12 @@ public class BingoNumber {
         return number;
     }
 
+    /**
+     * random.nextInt will return 0 ~ maxNumber -1.
+     * So, Need to add 1.
+     *
+     * @return (0 ~ maxNumber -1) + 1
+     */
     private Integer createRandom() {
         return random.nextInt(maxNumber) + 1;
     }

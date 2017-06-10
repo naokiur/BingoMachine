@@ -1,4 +1,4 @@
-package jp.ne.naokiur.bingomachine.service;
+package jp.ne.naokiur.bingomachine.service.dao;
 
 import android.content.ContentValues;
 import android.content.Context;

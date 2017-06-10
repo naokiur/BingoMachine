@@ -2,6 +2,8 @@ package jp.ne.naokiur.bingomachine.service;
 
 import android.content.Context;
 
+import jp.ne.naokiur.bingomachine.service.dao.BingoGameDao;
+
 /**
  * Created by nao-ur on 2017/06/04.
  */

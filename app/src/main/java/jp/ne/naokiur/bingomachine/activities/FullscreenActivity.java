@@ -15,7 +15,7 @@ import java.util.List;
 
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
-import jp.ne.naokiur.bingomachine.service.BingoProcessDao;
+import jp.ne.naokiur.bingomachine.service.dao.BingoProcessDao;
 
 public class FullscreenActivity extends AppCompatActivity {
 

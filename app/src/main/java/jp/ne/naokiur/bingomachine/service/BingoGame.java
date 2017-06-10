@@ -14,9 +14,10 @@ public class BingoGame {
     private long gameId;
     private BingoGameDao bingoGameDao;
 
-    public BingoGame(String title, Integer maxNumber) {
+    public BingoGame(String title, Integer maxNumber, Context context) {
         this.title = title;
         this.maxNumber = maxNumber;
+        this.bingoGameDao = new BingoGameDao(context);
     }
 
     public String getTitle() {
@@ -31,9 +32,8 @@ public class BingoGame {
         return gameId;
     }
 
-    public void register(Context baseContext) {
+    public void register() {
 
-        bingoGameDao = new BingoGameDao(baseContext);
         this.gameId = bingoGameDao.insert(title, maxNumber);
     }
 }

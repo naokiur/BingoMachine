@@ -49,8 +49,8 @@ public class InitialActivity extends AppCompatActivity {
                     new IllegalArgumentException();
                 }
 
-                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText));
-                bingoGame.register(getBaseContext());
+                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getBaseContext());
+                bingoGame.register();
 
                 Intent intent = new Intent(getBaseContext(), FullscreenActivity.class);
                 intent.putExtra("maxNumber", bingoGame.getMaxNumber());

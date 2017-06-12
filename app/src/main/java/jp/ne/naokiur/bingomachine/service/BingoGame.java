@@ -44,7 +44,7 @@ public class BingoGame {
     }
 
     private void validate() throws ValidateException {
-        if (StringUtils.isBlank(this.title)) throw new ValidateException("Need to input title.");
+        if (StringUtils.isBlank(this.title)) throw new ValidateException(context.getString(R.string.message_error_mandatory_title));
 
         if (maxNumber < 1 || maxNumber > 75) {
             throw new ValidateException(context.getString(R.string.message_error_invalid_max_number));

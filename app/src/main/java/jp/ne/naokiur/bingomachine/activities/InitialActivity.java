@@ -21,9 +21,9 @@ import jp.ne.naokiur.bingomachine.service.BingoGame;
 import jp.ne.naokiur.bingomachine.strage.DatabaseHelper;
 
 public class InitialActivity extends AppCompatActivity {
-    InterstitialAd interstitialAd;
-    EditText title;
-    EditText maxNumber;
+    private InterstitialAd interstitialAd;
+    private EditText title;
+    private EditText maxNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

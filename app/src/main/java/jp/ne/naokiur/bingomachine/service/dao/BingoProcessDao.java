@@ -48,6 +48,8 @@ public class BingoProcessDao {
             resultList.add(c.getInt(2));
         }
 
+        c.close();
+
         return resultList;
     }
 

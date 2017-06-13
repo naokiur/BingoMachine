@@ -13,21 +13,17 @@ import jp.ne.naokiur.bingomachine.service.dao.BingoGameDao;
  */
 
 public class BingoGame {
-    private String title;
-    private Integer maxNumber;
+    private final String title;
+    private final Integer maxNumber;
     private long gameId;
-    private BingoGameDao bingoGameDao;
-    private Context context;
+    private final BingoGameDao bingoGameDao;
+    private final Context context;
 
     public BingoGame(String title, Integer maxNumber, Context context) {
         this.title = title;
         this.maxNumber = maxNumber;
         this.context = context;
         this.bingoGameDao = new BingoGameDao(context);
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public Integer getMaxNumber() {

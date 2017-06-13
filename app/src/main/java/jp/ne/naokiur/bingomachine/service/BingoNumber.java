@@ -8,8 +8,8 @@ import java.util.Random;
  */
 public class BingoNumber {
     private final int maxNumber;
-    private Random random;
-    private int number;
+    private final Random random;
+    private final int number;
 
     /**
      * @param historyList already displayed numbers

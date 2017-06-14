@@ -24,6 +24,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private Button bingo;
     private Button reset;
     private TextView rollingNumber;
+    private TextView historyView;
 
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
@@ -59,8 +60,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            TextView historyView = (TextView) findViewById(R.id.text_history_number);
-
             historyView.setText(StringUtils.join(bingoProcessDao.selectByGameId(gameId), " "));
         }
     }
@@ -120,9 +119,13 @@ public class FullscreenActivity extends AppCompatActivity {
 
         maxNumber = intent.getIntExtra("maxNumber", 0);
         gameId = intent.getLongExtra("gameId", 0);
+
         bingo = (Button) findViewById(R.id.button_roll_bingo);
         reset = (Button) findViewById(R.id.button_reset);
         rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
+        historyView = (TextView) findViewById(R.id.text_history_number);
+
+        historyView.setText(StringUtils.join(bingoProcessDao.selectByGameId(gameId), " "));
 
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);

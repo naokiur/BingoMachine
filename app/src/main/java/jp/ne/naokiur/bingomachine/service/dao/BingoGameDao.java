@@ -25,6 +25,7 @@ public class BingoGameDao {
         ContentValues values = new ContentValues();
         values.put(BingoGameTable.TITLE.name(), title);
         values.put(BingoGameTable.MAX_NUMBER.name(), maxNumber);
+        values.put(BingoGameTable.CREATED_TIME_MILLIS.name(), System.currentTimeMillis());
 
         long rowId = db.insert(BingoGameTable.NAME, null, values);
 

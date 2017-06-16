@@ -8,7 +8,8 @@ import android.provider.BaseColumns;
 
 public enum BingoGameTable implements BaseColumns {
     TITLE,
-    MAX_NUMBER;
+    MAX_NUMBER,
+    CREATED_TIME_MILLIS;
 
     public static final String NAME = "BINGO_GAME";
 
@@ -17,7 +18,8 @@ public enum BingoGameTable implements BaseColumns {
                 + NAME + " ("
                 + _ID + " INTEGER PRIMARY KEY,"
                 + TITLE + " TEXT,"
-                + MAX_NUMBER + " INTEGER"
+                + MAX_NUMBER + " INTEGER,"
+                + CREATED_TIME_MILLIS + " INTEGER"
                 + ")";
     }
 }

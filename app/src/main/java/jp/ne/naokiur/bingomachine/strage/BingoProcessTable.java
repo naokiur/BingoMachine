@@ -7,8 +7,18 @@ import android.provider.BaseColumns;
  */
 
 public enum BingoProcessTable implements BaseColumns {
-    GAME_ID,
-    VALUE;
+    GAME_ID(1),
+    VALUE(2);
+
+    private Integer columnNo;
+
+    BingoProcessTable(Integer columnNo) {
+        this.columnNo = columnNo;
+    }
+
+    public Integer getColumnNo() {
+        return columnNo;
+    }
 
     public static final String NAME = "BINGO_PROCESS";
 

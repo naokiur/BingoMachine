@@ -45,7 +45,7 @@ public class BingoProcessDao {
         List<Integer> resultList = new ArrayList<>();
 
         while (c.moveToNext()) {
-            resultList.add(c.getInt(2));
+            resultList.add(c.getInt(BingoProcessTable.VALUE.getColumnNo()));
         }
 
         c.close();

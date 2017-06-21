@@ -62,7 +62,7 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
 //                intent.putExtra("gameId", bingoGame.getGameId());
 
 //                startActivity(intent);
-                BeginningFragment.newInstance("title", "message").show(getSupportFragmentManager(), "dialog");
+                BeginningFragment.newInstance().show(getSupportFragmentManager(), "dialog");
 
 //                if (interstitialAd.isLoaded()) {
 //                    interstitialAd.show();
@@ -84,12 +84,6 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID").build();
         interstitialAd.loadAd(adRequest);
-    }
-
-    private void displayToast(String message) {
-        Toast toast = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
     }
 
     @Override

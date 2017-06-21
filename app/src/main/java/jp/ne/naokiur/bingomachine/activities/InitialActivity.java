@@ -1,6 +1,6 @@
 package jp.ne.naokiur.bingomachine.activities;
 
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -13,14 +13,10 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
-import org.apache.commons.lang3.StringUtils;
-
 import jp.ne.naokiur.bingomachine.R;
-import jp.ne.naokiur.bingomachine.common.exception.ValidateException;
-import jp.ne.naokiur.bingomachine.service.BingoGame;
 import jp.ne.naokiur.bingomachine.strage.DatabaseHelper;
 
-public class InitialActivity extends AppCompatActivity {
+public class InitialActivity extends AppCompatActivity implements BeginningFragment.OnFragmentInteractionListener {
     private InterstitialAd interstitialAd;
     private EditText title;
     private EditText maxNumber;
@@ -41,37 +37,38 @@ public class InitialActivity extends AppCompatActivity {
 
         requestNewInterstitial();
 
-        Button button = (Button) findViewById(R.id.button_begin);
+        Button button = (Button) findViewById(R.id.button_new_game);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String titleText = title.getText().toString();
-                String maxNumberText = maxNumber.getText().toString();
+//                String titleText = title.getText().toString();
+//                String maxNumberText = maxNumber.getText().toString();
+//
+//                if (!StringUtils.isNumeric(maxNumberText) || maxNumberText.length() > 3) {
+//                    displayToast(getString(R.string.message_error_invalid_max_number));
+//                    return;
+//                }
+//
+//                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getBaseContext());
+//                try {
+//                    bingoGame.register();
+//                } catch (ValidateException e) {
+//                    displayToast(e.getMessage());
+//                    return;
+//                }
+//
+//                Intent intent = new Intent(getBaseContext(), FullscreenActivity.class);
+//                intent.putExtra("maxNumber", bingoGame.getMaxNumber());
+//                intent.putExtra("gameId", bingoGame.getGameId());
 
-                if (!StringUtils.isNumeric(maxNumberText) || maxNumberText.length() > 3) {
-                    displayToast(getString(R.string.message_error_invalid_max_number));
-                    return;
-                }
+//                startActivity(intent);
+                BeginningFragment.newInstance("title", "message").show(getSupportFragmentManager(), "dialog");
 
-                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getBaseContext());
-                try {
-                    bingoGame.register();
-                } catch (ValidateException e) {
-                    displayToast(e.getMessage());
-                    return;
-                }
-
-                Intent intent = new Intent(getBaseContext(), FullscreenActivity.class);
-                intent.putExtra("maxNumber", bingoGame.getMaxNumber());
-                intent.putExtra("gameId", bingoGame.getGameId());
-
-                startActivity(intent);
-
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
-                    requestNewInterstitial();
-
-                }
+//                if (interstitialAd.isLoaded()) {
+//                    interstitialAd.show();
+//                    requestNewInterstitial();
+//
+//                }
             }
         });
 
@@ -93,5 +90,10 @@ public class InitialActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

@@ -3,10 +3,14 @@
     <string name="bingo_roll">ビンゴロール</string>
     <string name="reset">リセット</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="button_begin">はじめる</string>
+    <string name="button_new_game">はじめから</string>
     <string name="text_app_title">ビンゴ</string>
     <string name="text_bingo_title">タイトル</string>
     <string name="text_max_number">最大番号</string>
     <string name="message_error_invalid_max_number">Need to input number smaller than 75.</string>
     <string name="message_error_mandatory_title">Need to input title.</string>
+    <string name="button_resume">つづきから</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

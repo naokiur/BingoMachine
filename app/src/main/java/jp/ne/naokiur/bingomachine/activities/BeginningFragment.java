@@ -2,6 +2,7 @@ package jp.ne.naokiur.bingomachine.activities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,12 +11,18 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 
 import jp.ne.naokiur.bingomachine.R;
 
 public class BeginningFragment extends DialogFragment {
 
     private OnFragmentInteractionListener mListener;
+    private InterstitialAd interstitialAd;
 
     public BeginningFragment() {
     }
@@ -31,6 +38,10 @@ public class BeginningFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        interstitialAd = new InterstitialAd(getActivity());
+        interstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        requestNewInterstitial();
     }
 
     @NonNull
@@ -39,8 +50,30 @@ public class BeginningFragment extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.fragment_beginning, null)).setTitle("Test!!");
+        final View layout = inflater.inflate(R.layout.fragment_beginning, null);
 
+        builder.setView(layout).setTitle("新しいビンゴをはじめます").setPositiveButton(R.string.text_app_title, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText title = (EditText) layout.findViewById(R.id.edit_title);
+                EditText maxNumber = (EditText) layout.findViewById(R.id.edit_max_number);
+
+                System.out.println(title.getText() + ":" + maxNumber.getText());
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                    requestNewInterstitial();
+
+                }
+
+                interstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        requestNewInterstitial();
+                    }
+                });
+            }
+        });
 
         return builder.create();
     }
@@ -72,5 +105,11 @@ public class BeginningFragment extends DialogFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID").build();
+        interstitialAd.loadAd(adRequest);
     }
 }

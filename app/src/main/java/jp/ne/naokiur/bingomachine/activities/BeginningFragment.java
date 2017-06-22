@@ -40,6 +40,25 @@ public class BeginningFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+//        DatabaseHelper helper = new DatabaseHelper(this);
+//        helper.getWritableDatabase();
+
+//                String titleText = title.getText().toString();
+//                String maxNumberText = maxNumber.getText().toString();
+//
+//                if (!StringUtils.isNumeric(maxNumberText) || maxNumberText.length() > 3) {
+//                    displayToast(getString(R.string.message_error_invalid_max_number));
+//                    return;
+//                }
+//
+//                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getBaseContext());
+//                try {
+//                    bingoGame.register();
+//                } catch (ValidateException e) {
+//                    displayToast(e.getMessage());
+//                    return;
+//                }
+//
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 

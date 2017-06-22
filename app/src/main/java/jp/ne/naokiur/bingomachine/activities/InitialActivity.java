@@ -7,10 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.strage.DatabaseHelper;
 
 public class InitialActivity extends AppCompatActivity implements BeginningFragment.OnFragmentInteractionListener {
+    private InterstitialAd interstitialAd;
+
     private EditText title;
     private EditText maxNumber;
 
@@ -18,6 +24,10 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        requestNewInterstitial();
 
         title = (EditText) findViewById(R.id.edit_title);
         maxNumber = (EditText) findViewById(R.id.edit_max_number);
@@ -29,6 +39,19 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                    requestNewInterstitial();
+
+                }
+
+                interstitialAd.setAdListener(new AdListener() {
+                    @Override
+                    public void onAdClosed() {
+                        requestNewInterstitial();
+                        BeginningFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+                    }
+                });
 //                String titleText = title.getText().toString();
 //                String maxNumberText = maxNumber.getText().toString();
 //
@@ -45,12 +68,6 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
 //                    return;
 //                }
 //
-//                Intent intent = new Intent(getBaseContext(), FullscreenActivity.class);
-//                intent.putExtra("maxNumber", bingoGame.getMaxNumber());
-//                intent.putExtra("gameId", bingoGame.getGameId());
-
-//                startActivity(intent);
-                BeginningFragment.newInstance().show(getSupportFragmentManager(), "dialog");
 
             }
         });
@@ -58,5 +75,11 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID").build();
+        interstitialAd.loadAd(adRequest);
     }
 }

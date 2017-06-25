@@ -19,6 +19,7 @@ public class InitialActivity extends AppCompatActivity implements BeginningFragm
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BeginningFragment.newInstance().show(getSupportFragmentManager(), "Dialog");
             }
         });
     }

@@ -2,7 +2,6 @@ package jp.ne.naokiur.bingomachine.activities;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,13 +11,24 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import jp.ne.naokiur.bingomachine.R;
+import jp.ne.naokiur.bingomachine.common.exception.ValidateException;
+import jp.ne.naokiur.bingomachine.service.BingoGame;
 
 public class BeginningFragment extends DialogFragment {
 
     private OnFragmentInteractionListener mListener;
+
+    private View layout;
+    private TextView message;
+    private EditText title;
+    private EditText maxNumber;
 
     public BeginningFragment() {
     }
@@ -27,55 +37,54 @@ public class BeginningFragment extends DialogFragment {
         BeginningFragment fragment = new BeginningFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
         return fragment;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        layout = inflater.inflate(R.layout.fragment_beginning, null);
+        message = (TextView) layout.findViewById(R.id.message);
+
+        title = (EditText) layout.findViewById(R.id.edit_title);
+
+        maxNumber = (EditText) layout.findViewById(R.id.edit_max_number);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-//        DatabaseHelper helper = new DatabaseHelper(this);
-//        helper.getWritableDatabase();
-
-//                String titleText = title.getText().toString();
-//                String maxNumberText = maxNumber.getText().toString();
-//
-//                if (!StringUtils.isNumeric(maxNumberText) || maxNumberText.length() > 3) {
-//                    displayToast(getString(R.string.message_error_invalid_max_number));
-//                    return;
-//                }
-//
-//                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getBaseContext());
-//                try {
-//                    bingoGame.register();
-//                } catch (ValidateException e) {
-//                    displayToast(e.getMessage());
-//                    return;
-//                }
-//
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-        final View layout = inflater.inflate(R.layout.fragment_beginning, null);
-
-        builder.setView(layout).setTitle("新しいビンゴをはじめます").setPositiveButton(R.string.text_app_title, new DialogInterface.OnClickListener() {
+        builder.setView(layout).setTitle("新しいビンゴをはじめます");
+        Button button = (Button) layout.findViewById(R.id.button_begin_new_game);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
 
-                EditText title = (EditText) layout.findViewById(R.id.edit_title);
-                EditText maxNumber = (EditText) layout.findViewById(R.id.edit_max_number);
+                String titleText = title.getText().toString();
+                String maxNumberText = maxNumber.getText().toString();
+                message.setText(StringUtils.EMPTY);
 
-                System.out.println(title.getText() + ":" + maxNumber.getText());
+                if (!StringUtils.isNumeric(maxNumberText) || maxNumberText.length() > 3) {
+                    message.setText(getString(R.string.message_error_invalid_max_number));
+                    return;
+                }
+
+                BingoGame bingoGame = new BingoGame(titleText, Integer.valueOf(maxNumberText), getContext());
+                try {
+                    bingoGame.register();
+                } catch (ValidateException e) {
+                    message.setText((e.getMessage()));
+                    return;
+                }
 
                 Intent intent = new Intent(getActivity(), FullscreenActivity.class);
-//                intent.putExtra("maxNumber", bingoGame.getMaxNumber());
-//                intent.putExtra("gameId", bingoGame.getGameId());
+                intent.putExtra("maxNumber", bingoGame.getMaxNumber());
+                intent.putExtra("gameId", bingoGame.getGameId());
 
                 startActivity(intent);
             }
@@ -87,7 +96,6 @@ public class BeginningFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_beginning, container, false);
     }
 
@@ -109,7 +117,6 @@ public class BeginningFragment extends DialogFragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -59,7 +59,7 @@ public class BeginningFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(layout).setTitle("新しいビンゴをはじめます");
+        builder.setView(layout).setTitle(R.string.text_fragment_title);
         Button button = (Button) layout.findViewById(R.id.button_begin_new_game);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

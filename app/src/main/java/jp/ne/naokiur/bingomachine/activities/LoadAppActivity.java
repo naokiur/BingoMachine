@@ -13,6 +13,7 @@ import jp.ne.naokiur.bingomachine.R;
 
 public class LoadAppActivity extends AppCompatActivity {
     private InterstitialAd interstitialAd;
+    private  static final int LOAD_ADVERTISEMENT = 4500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class LoadAppActivity extends AppCompatActivity {
                 }
 
             }
-        }, 4500);
+        }, LOAD_ADVERTISEMENT);
     }
 
     private void loadInterstitial() {

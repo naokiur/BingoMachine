@@ -8,6 +8,7 @@
     <string name="text_bingo_title">タイトル</string>
     <string name="text_max_number">最大番号</string>
     <string name="message_error_invalid_max_number">Need to input number smaller than 75.</string>
+    <string name="message_error_max_size_title">Need to input title smaller than 100.</string>
     <string name="message_error_mandatory_title">Need to input title.</string>
     <string name="button_resume">つづきから</string>
 

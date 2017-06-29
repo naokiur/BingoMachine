@@ -19,6 +19,8 @@ public class BingoGame {
     private final BingoGameDao bingoGameDao;
     private final Context context;
 
+    private static final int MAX_TITLE_SIZE = 100;
+
     public BingoGame(String title, Integer maxNumber, Context context) {
         this.title = title;
         this.maxNumber = maxNumber;
@@ -41,6 +43,8 @@ public class BingoGame {
 
     private void validate() throws ValidateException {
         if (StringUtils.isBlank(this.title)) throw new ValidateException(context.getString(R.string.message_error_mandatory_title));
+
+        if (this.title.length() > MAX_TITLE_SIZE) throw new ValidateException(context.getString(R.string.message_error_max_size_title));
 
         if (maxNumber < 1 || maxNumber > 75) {
             throw new ValidateException(context.getString(R.string.message_error_invalid_max_number));

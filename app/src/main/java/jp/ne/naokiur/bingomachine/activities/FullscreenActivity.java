@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -26,7 +25,6 @@ public class FullscreenActivity extends AppCompatActivity {
     private Button bingo;
     private Button reset;
     private TextView rollingNumber;
-//    private TextView historyView;
     private GridView history;
 
     private final Handler handler = new Handler();
@@ -48,7 +46,6 @@ public class FullscreenActivity extends AppCompatActivity {
             switchEnableBingoRollButton();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
             history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, new ArrayList<Integer>()));
-//            ((TextView) findViewById(R.id.text_history_number)).setText("");
         }
     };
 
@@ -65,23 +62,8 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void run() {
             List<Integer> currentBingo = bingoProcessDao.selectByGameId(gameId);
-            int side = new BigDecimal(Math.sqrt(currentBingo.size())).setScale(0, BigDecimal.ROUND_UP).intValue();
-
-            for (int x = 0; x < side; x++) {
-                for (int y = 0; y < side; y++) {
-//                    TextView view = new TextView(getBaseContext());
-//                    view.setText(String.valueOf(x + y));
-//                    GridLayout.LayoutParams grid = new GridLayout.LayoutParams();
-//                    grid.columnSpec = GridLayout.spec(x);
-//                    grid.rowSpec = GridLayout.spec(y);
-//                    view.setLayoutParams(grid);
-//                    history.child
-                }
-            }
 
             history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, currentBingo));
-
-//            historyView.setText(StringUtils.join(bingoProcessDao.selectByGameId(gameId), " "));
 
         }
     }
@@ -145,14 +127,7 @@ public class FullscreenActivity extends AppCompatActivity {
         bingo = (Button) findViewById(R.id.button_roll_bingo);
         reset = (Button) findViewById(R.id.button_reset);
         rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
-//        historyView = (TextView) findViewById(R.id.text_history_number);
         history = (GridView) findViewById(R.id.history);
-
-        int side = new BigDecimal(Math.sqrt(maxNumber)).setScale(0, BigDecimal.ROUND_UP).intValue();
-//        history.setColumnCount(side);
-//        history.setRowCount(side);
-
-//        historyView.setText(StringUtils.join(bingoProcessDao.selectByGameId(gameId), " "));
 
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);

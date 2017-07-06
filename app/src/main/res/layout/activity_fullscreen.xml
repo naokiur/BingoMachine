@@ -6,65 +6,6 @@
     android:orientation="vertical"
     tools:context="jp.ne.naokiur.bingomachine.activities.FullscreenActivity">
 
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:fitsSystemWindows="true">-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/fullscreen_content_top_controls"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="top|end"-->
-    <!--android:background="@color/black_overlay">-->
-
-    <!--</LinearLayout>-->
-
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/fullscreen_content_controls"-->
-    <!--style="?metaButtonBarStyle"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|center_horizontal"-->
-    <!--android:orientation="horizontal"-->
-    <!--tools:ignore="UselessParent">-->
-
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/layout_display"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/layout_history_number"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/text_history_number"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textColor="@color/number_color"-->
-    <!--android:textSize="20sp"-->
-    <!--android:textStyle="bold|italic" />-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/layout_current_number"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="1"-->
-    <!--android:orientation="vertical">-->
-
-    <!--</LinearLayout>-->
-    <!--</LinearLayout>-->
-    <!--</FrameLayout>-->
     <Button
         android:id="@+id/button_reset"
         android:layout_width="wrap_content"

@@ -1,95 +1,125 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/default_background"
+    android:orientation="vertical"
     tools:context="jp.ne.naokiur.bingomachine.activities.FullscreenActivity">
 
-    <FrameLayout
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fitsSystemWindows="true">-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/fullscreen_content_top_controls"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="top|end"-->
+    <!--android:background="@color/black_overlay">-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/fullscreen_content_controls"-->
+    <!--style="?metaButtonBarStyle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|center_horizontal"-->
+    <!--android:orientation="horizontal"-->
+    <!--tools:ignore="UselessParent">-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/layout_display"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/layout_history_number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/text_history_number"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="@color/number_color"-->
+    <!--android:textSize="20sp"-->
+    <!--android:textStyle="bold|italic" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/layout_current_number"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:orientation="vertical">-->
+
+    <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+    <!--</FrameLayout>-->
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="end"
+        android:layout_weight="1"
+        android:background="@color/reset_background"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/reset" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/fullscreen_content_top_controls"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:background="@color/black_overlay">
-
-            <Button
-                android:id="@+id/button_reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/reset_background"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="@string/reset" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/fullscreen_content_controls"
-            style="?metaButtonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/button_roll_bingo"
-                android:background="@color/number_color"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/bingo_roll" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_display"
-            android:layout_width="match_parent"
+        <GridView
+            android:id="@+id/history"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:columnWidth="50dp"
+            android:horizontalSpacing="1dp"
+            android:minHeight="10dp"
+            android:numColumns="auto_fit"
+            android:padding="0dp"
+            android:stretchMode="columnWidth"
+            android:textAlignment="center"
+            android:verticalSpacing="5dp">
 
-            <LinearLayout
-                android:id="@+id/layout_history_number"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        </GridView>
 
-                <TextView
-                    android:id="@+id/text_history_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/number_color"
-                    android:textSize="20sp"
-                    android:textStyle="bold|italic" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_current_number"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/text_rolling_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:background="@color/default_background"
+            android:textAlignment="center"
+            android:textColor="@color/number_color"
+            android:textSize="110sp"
+            android:textStyle="bold|italic" />
 
-                <TextView
-                    android:id="@+id/text_rolling_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@color/default_background"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:paddingTop="10dp"
-                    android:textColor="@color/number_color"
-                    android:textSize="110sp"
-                    android:textStyle="bold|italic" />
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_roll_bingo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="2"
+        android:background="@color/number_color"
+        android:text="@string/bingo_roll" />
+</LinearLayout>

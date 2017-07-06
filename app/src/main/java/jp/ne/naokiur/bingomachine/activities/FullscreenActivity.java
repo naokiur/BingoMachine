@@ -63,7 +63,7 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             List<Integer> currentBingo = bingoProcessDao.selectByGameId(gameId);
 
-            history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, currentBingo));
+//            history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, currentBingo));
 
         }
     }
@@ -128,9 +128,18 @@ public class FullscreenActivity extends AppCompatActivity {
         reset = (Button) findViewById(R.id.button_reset);
         rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
         history = (GridView) findViewById(R.id.history);
-
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);
+
+        List<Integer> historyList = new ArrayList<Integer>() {
+            {
+                for (int i = 1; i <= maxNumber; i++) {
+                    add(i);
+                }
+            }
+        };
+
+        history.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, historyList));
     }
 
     private void switchEnableBingoRollButton() {

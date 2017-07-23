@@ -14,7 +14,7 @@
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/description_edit_text_title" />
+        android:hint="@string/description_edit_text_title" />
 
     <EditText
         android:id="@+id/edit_max_number"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:maxLength="2"
-        android:contentDescription="@string/description_edit_max_number" />
+        android:hint="@string/description_edit_max_number" />
 
     <Button
         android:id="@+id/button_begin_new_game"

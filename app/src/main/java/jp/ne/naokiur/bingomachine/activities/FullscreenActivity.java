@@ -139,7 +139,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         };
 
-        history.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, historyList));
+        history.setAdapter(new HistoryAdapter(this, historyList));
     }
 
     private void switchEnableBingoRollButton() {

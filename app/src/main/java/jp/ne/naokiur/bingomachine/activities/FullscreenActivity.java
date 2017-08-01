@@ -16,6 +16,7 @@ import java.util.List;
 
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
+import jp.ne.naokiur.bingomachine.service.HistoryItem;
 import jp.ne.naokiur.bingomachine.service.dao.BingoProcessDao;
 
 public class FullscreenActivity extends AppCompatActivity {
@@ -131,10 +132,10 @@ public class FullscreenActivity extends AppCompatActivity {
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);
 
-        List<Integer> historyList = new ArrayList<Integer>() {
+        List<HistoryItem> historyList = new ArrayList<HistoryItem>() {
             {
                 for (int i = 1; i <= maxNumber; i++) {
-                    add(i);
+                    add(new HistoryItem(i, false));
                 }
             }
         };

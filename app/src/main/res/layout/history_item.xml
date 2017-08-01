@@ -11,7 +11,9 @@
         android:background="@color/default_background"
         android:padding="1dp"
         android:textAlignment="center"
-        android:textColor="#2ACA2C"
+        android:textColor="@color/default_background"
         android:textSize="25sp" />
+
+    <!--android:textColor="#2ACA2C"-->
 
 </LinearLayout>

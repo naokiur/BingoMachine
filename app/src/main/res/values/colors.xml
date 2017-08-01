@@ -6,6 +6,7 @@
     <color name="default_background">#F8E3FB</color>
     <color name="number_color">#E5B6EC</color>
     <color name="reset_background">#D1F7A7</color>
+    <color name="drawn_item">#2ACA2C</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

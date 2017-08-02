@@ -20,4 +20,8 @@ public class HistoryItem {
     public boolean isDrawn() {
         return isDrawn;
     }
+
+    public void setDrawn(boolean drawn) {
+        isDrawn = drawn;
+    }
 }

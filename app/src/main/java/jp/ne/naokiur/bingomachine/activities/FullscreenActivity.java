@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private Button reset;
     private TextView rollingNumber;
     private GridView history;
+    private SparseArray<HistoryItem> historyStatuses;
 
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
@@ -46,7 +46,9 @@ public class FullscreenActivity extends AppCompatActivity {
             bingoProcessDao.deleteAll();
             switchEnableBingoRollButton();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
-            history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, new ArrayList<Integer>()));
+
+            historyStatuses = initializeHistoryStatuses();
+            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
         }
     };
 
@@ -64,8 +66,14 @@ public class FullscreenActivity extends AppCompatActivity {
         public void run() {
             List<Integer> currentBingo = bingoProcessDao.selectByGameId(gameId);
 
-//            history.setAdapter(new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_list_item_1, currentBingo));
+            for (Integer current : currentBingo) {
+                // If historyStatuses does not have 'current' as their key, indexOfKey() will return '-1'.
+                if (historyStatuses.indexOfKey(current) >= 0) {
+                    historyStatuses.get(current).setDrawn(true);
+                }
+            }
 
+            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
         }
     }
 
@@ -132,15 +140,9 @@ public class FullscreenActivity extends AppCompatActivity {
         bingo.setOnClickListener(rollBingoClickListener);
         reset.setOnClickListener(resetClickListener);
 
-        List<HistoryItem> historyList = new ArrayList<HistoryItem>() {
-            {
-                for (int i = 1; i <= maxNumber; i++) {
-                    add(new HistoryItem(i, false));
-                }
-            }
-        };
+        historyStatuses = initializeHistoryStatuses();
 
-        history.setAdapter(new HistoryAdapter(this, historyList));
+        history.setAdapter(new HistoryAdapter(this, historyStatuses));
     }
 
     private void switchEnableBingoRollButton() {
@@ -153,5 +155,16 @@ public class FullscreenActivity extends AppCompatActivity {
             bingo.setEnabled(!bingo.isEnabled());
 
         }
+    }
+
+    private SparseArray<HistoryItem> initializeHistoryStatuses() {
+        return new SparseArray<HistoryItem>() {
+            {
+                for (int i = 1; i <= maxNumber; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
+            }
+
+        };
     }
 }

@@ -28,38 +28,49 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:background="#FFFFFF"
             android:columnWidth="40dp"
+            android:horizontalSpacing="0dp"
             android:minHeight="10dp"
             android:numColumns="auto_fit"
-            android:horizontalSpacing="0dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
             android:stretchMode="columnWidth"
             android:textAlignment="center"
-            android:padding="5dp"
-            android:verticalSpacing="5dp" />
+            android:verticalSpacing="2dp" />
 
 
-        <TextView
-            android:id="@+id/text_rolling_number"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:background="@color/default_background"
-            android:textAlignment="center"
-            android:textColor="@color/number_color"
-            android:textSize="110sp"
-            android:textStyle="bold|italic" />
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_rolling_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="3"
+                android:background="@color/default_background"
+                android:textAlignment="center"
+                android:textColor="@color/number_color"
+                android:textSize="140sp"
+                android:textStyle="bold|italic" />
+
+            <Button
+                android:id="@+id/button_roll_bingo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="2"
+                android:background="@color/number_color"
+                android:text="@string/bingo_roll" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button_roll_bingo"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="bottom"
-        android:layout_weight="2"
-        android:background="@color/number_color"
-        android:text="@string/bingo_roll" />
 </LinearLayout>

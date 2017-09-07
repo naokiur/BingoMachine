@@ -3,9 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="default_background">#F8E3FB</color>
+    <color name="default_background">#D8D8D8</color>
     <color name="number_color">#E5B6EC</color>
-    <color name="reset_background">#D1F7A7</color>
+    <color name="reset_background">#E0E0E0</color>
     <color name="drawn_item">#2ACA2C</color>
 
     <color name="black_overlay">#66000000</color>

@@ -130,19 +130,19 @@ public class FullscreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fullscreen);
         Intent intent = getIntent();
 
-        maxNumber = intent.getIntExtra("maxNumber", 0);
-        gameId = intent.getLongExtra("gameId", 0);
-
-        bingo = (Button) findViewById(R.id.button_roll_bingo);
-        reset = (Button) findViewById(R.id.button_reset);
-        rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
-        history = (GridView) findViewById(R.id.history);
-        bingo.setOnClickListener(rollBingoClickListener);
-        reset.setOnClickListener(resetClickListener);
-
-        historyStatuses = initializeHistoryStatuses();
-
-        history.setAdapter(new HistoryAdapter(this, historyStatuses));
+//        maxNumber = intent.getIntExtra("maxNumber", 0);
+//        gameId = intent.getLongExtra("gameId", 0);
+//
+////        bingo = (Button) findViewById(R.id.button_roll_bingo);
+//        reset = (Button) findViewById(R.id.button_reset);
+//        rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
+////        history = (GridView) findViewById(R.id.history);
+//        bingo.setOnClickListener(rollBingoClickListener);
+//        reset.setOnClickListener(resetClickListener);
+//
+//        historyStatuses = initializeHistoryStatuses();
+//
+//        history.setAdapter(new HistoryAdapter(this, historyStatuses));
     }
 
     private void switchEnableBingoRollButton() {

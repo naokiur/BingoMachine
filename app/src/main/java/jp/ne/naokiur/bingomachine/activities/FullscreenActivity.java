@@ -1,5 +1,7 @@
 package jp.ne.naokiur.bingomachine.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -129,6 +131,11 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
         Intent intent = getIntent();
+
+        TextView animation = (TextView) findViewById(R.id.animation);
+        Animator animator = AnimatorInflater.loadAnimator(this, R.animator.updown);
+        animator.setTarget(animation);
+        animator.start();
 
 //        maxNumber = intent.getIntExtra("maxNumber", 0);
 //        gameId = intent.getLongExtra("gameId", 0);

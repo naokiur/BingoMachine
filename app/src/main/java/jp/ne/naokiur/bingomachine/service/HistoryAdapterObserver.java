@@ -68,7 +68,6 @@ public class HistoryAdapterObserver {
         HistoryColumn fifth = HistoryColumn.FIFTH_COLUMN;
         this.adapterMap.put(fifth.getIndex(), generateInitialAdapter(fifth.getBegin(), fifth.getEnd() <= maxNumber ? fifth.getEnd() : maxNumber));
 
-
     }
 
     private HistoryAdapter<SparseArray<HistoryItem>> generateInitialAdapter(final int begin, final int end) {

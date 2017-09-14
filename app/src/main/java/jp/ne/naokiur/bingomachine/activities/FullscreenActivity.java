@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.SparseArray;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,13 +20,13 @@ import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
 import jp.ne.naokiur.bingomachine.service.HistoryAdapterObserver;
 import jp.ne.naokiur.bingomachine.service.HistoryColumn;
-import jp.ne.naokiur.bingomachine.service.HistoryItem;
 import jp.ne.naokiur.bingomachine.service.dao.BingoProcessDao;
 
 public class FullscreenActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
+
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -36,6 +35,7 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
+
     private Integer maxNumber;
     private long gameId;
     private Button reset;
@@ -52,17 +52,14 @@ public class FullscreenActivity extends AppCompatActivity {
 //            firstHistory.setAdapter(new HistoryAdapter<S>(getBaseContext(), firstHistoryStatuses));
         }
     };
+
     private GridView firstHistory;
     private GridView secondHistory;
     private GridView thirdHistory;
     private GridView forthHistory;
     private GridView fifthHistory;
-    private SparseArray<HistoryItem> firstHistoryStatuses;
-    private SparseArray<HistoryItem> secondHistoryStatuses;
-    private SparseArray<HistoryItem> thirdHistoryStatuses;
-    private SparseArray<HistoryItem> forthHistoryStatuses;
-    private SparseArray<HistoryItem> fifthHistoryStatuses;
     private HistoryAdapterObserver observer;
+
     private GestureDetector gestureDetector;
 
     @Override
@@ -78,8 +75,6 @@ public class FullscreenActivity extends AppCompatActivity {
         Intent intent = getIntent();
         maxNumber = intent.getIntExtra("maxNumber", 0);
         gameId = intent.getLongExtra("gameId", 0);
-
-        firstHistoryStatuses = initializeHistoryStatuses();
 
         reset = (Button) findViewById(R.id.button_reset);
         reset.setOnClickListener(resetClickListener);
@@ -117,17 +112,6 @@ public class FullscreenActivity extends AppCompatActivity {
             rollingNumber.setEnabled(!rollingNumber.isEnabled());
 
         }
-    }
-
-    private SparseArray<HistoryItem> initializeHistoryStatuses() {
-        return new SparseArray<HistoryItem>() {
-            {
-                for (int i = 1; i <= maxNumber; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
-            }
-
-        };
     }
 
     private class SwitchRunnable implements Runnable {

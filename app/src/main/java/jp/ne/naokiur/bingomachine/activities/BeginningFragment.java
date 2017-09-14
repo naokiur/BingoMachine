@@ -88,6 +88,7 @@ public class BeginningFragment extends DialogFragment {
 
                 startActivity(intent);
 
+                // If User close FullscreenActivity.class, finishThisFragment() can prevent from reopening this fragment.
                 finishThisFragment();
             }
         });

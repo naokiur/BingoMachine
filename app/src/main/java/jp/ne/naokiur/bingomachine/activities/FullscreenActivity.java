@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -24,22 +26,15 @@ public class FullscreenActivity extends AppCompatActivity {
 
     private Integer maxNumber;
     private long gameId;
-    private Button bingo;
     private Button reset;
-    private TextView rollingNumber;
+    private Button rollingNumber;
     private GridView history;
     private SparseArray<HistoryItem> historyStatuses;
 
+    private GestureDetector gestureDetector;
+
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
-
-    private final View.OnClickListener rollBingoClickListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            new RollingThread().start();
-        }
-    };
 
     private final View.OnClickListener resetClickListener = new View.OnClickListener() {
 
@@ -75,7 +70,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 }
             }
 
-            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
+//            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
         }
     }
 
@@ -126,29 +121,47 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     }
 
+    private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            new RollingThread().start();
+
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
         Intent intent = getIntent();
+        gestureDetector = new GestureDetector(this, mGestureListener);
 
         TextView animation = (TextView) findViewById(R.id.animation);
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.updown);
         animator.setTarget(animation);
         animator.start();
 
-//        maxNumber = intent.getIntExtra("maxNumber", 0);
-//        gameId = intent.getLongExtra("gameId", 0);
+        maxNumber = intent.getIntExtra("maxNumber", 0);
+        gameId = intent.getLongExtra("gameId", 0);
 //
 ////        bingo = (Button) findViewById(R.id.button_roll_bingo);
-//        reset = (Button) findViewById(R.id.button_reset);
-//        rollingNumber = (TextView) findViewById(R.id.text_rolling_number);
+        reset = (Button) findViewById(R.id.button_reset);
+        rollingNumber = (Button) findViewById(R.id.text_rolling_number);
 ////        history = (GridView) findViewById(R.id.history);
-//        bingo.setOnClickListener(rollBingoClickListener);
-//        reset.setOnClickListener(resetClickListener);
-//
-//        historyStatuses = initializeHistoryStatuses();
-//
+//        rollingNumber.setOnClickListener(rollBingoClickListener);
+
+        rollingNumber.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
+        reset.setOnClickListener(resetClickListener);
+
+        historyStatuses = initializeHistoryStatuses();
+
 //        history.setAdapter(new HistoryAdapter(this, historyStatuses));
     }
 
@@ -157,9 +170,9 @@ public class FullscreenActivity extends AppCompatActivity {
 
         // TODO This has bug when reset button is tapped despite the game is not finished.
         if (historyList.size() >= maxNumber) {
-            bingo.setEnabled(false);
+            rollingNumber.setEnabled(false);
         } else {
-            bingo.setEnabled(!bingo.isEnabled());
+            rollingNumber.setEnabled(!rollingNumber.isEnabled());
 
         }
     }

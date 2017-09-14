@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bingo_number_text"
-            android:text="A"
+            android:text="1"
             android:textAlignment="center"
             android:textColor="@color/number_color"
             android:textSize="140sp"

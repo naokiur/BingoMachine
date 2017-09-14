@@ -20,6 +20,7 @@ import java.util.List;
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
 import jp.ne.naokiur.bingomachine.service.HistoryAdapterObserver;
+import jp.ne.naokiur.bingomachine.service.HistoryColumn;
 import jp.ne.naokiur.bingomachine.service.HistoryItem;
 import jp.ne.naokiur.bingomachine.service.dao.BingoProcessDao;
 
@@ -77,11 +78,11 @@ public class FullscreenActivity extends AppCompatActivity {
                 observer.updateAdapters(current);
             }
 
-            firstHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FIRST_COLUMN.getIndex()));
-            secondHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.SECOND_COLUMN.getIndex()));
-            thirdHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.THIRD_COLUMN.getIndex()));
-            forthHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FORTH_COLUMN.getIndex()));
-            fifthHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FIFTH_COLUMN.getIndex()));
+            firstHistory.setAdapter(observer.getAdapter(HistoryColumn.FIRST_COLUMN.getIndex()));
+            secondHistory.setAdapter(observer.getAdapter(HistoryColumn.SECOND_COLUMN.getIndex()));
+            thirdHistory.setAdapter(observer.getAdapter(HistoryColumn.THIRD_COLUMN.getIndex()));
+            forthHistory.setAdapter(observer.getAdapter(HistoryColumn.FORTH_COLUMN.getIndex()));
+            fifthHistory.setAdapter(observer.getAdapter(HistoryColumn.FIFTH_COLUMN.getIndex()));
         }
     }
 
@@ -174,14 +175,13 @@ public class FullscreenActivity extends AppCompatActivity {
         thirdHistory = (GridView) findViewById(R.id.number_third_column);
         forthHistory = (GridView) findViewById(R.id.number_forth_column);
         fifthHistory = (GridView) findViewById(R.id.number_fifth_column);
+
         observer = new HistoryAdapterObserver(maxNumber, this);
-
-        firstHistory.setAdapter(observer.getAdapter(1));
-        secondHistory.setAdapter(observer.getAdapter(2));
-        thirdHistory.setAdapter(observer.getAdapter(3));
-        forthHistory.setAdapter(observer.getAdapter(4));
-        fifthHistory.setAdapter(observer.getAdapter(5));
-
+        firstHistory.setAdapter(observer.getAdapter(HistoryColumn.FIRST_COLUMN.getIndex()));
+        secondHistory.setAdapter(observer.getAdapter(HistoryColumn.SECOND_COLUMN.getIndex()));
+        thirdHistory.setAdapter(observer.getAdapter(HistoryColumn.THIRD_COLUMN.getIndex()));
+        forthHistory.setAdapter(observer.getAdapter(HistoryColumn.FORTH_COLUMN.getIndex()));
+        fifthHistory.setAdapter(observer.getAdapter(HistoryColumn.FIFTH_COLUMN.getIndex()));
     }
 
     private void switchEnableBingoRollButton() {

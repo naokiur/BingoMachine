@@ -26,7 +26,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private final BingoProcessDao bingoProcessDao = new BingoProcessDao(this);
-
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -48,8 +47,12 @@ public class FullscreenActivity extends AppCompatActivity {
             switchEnableBingoRollButton();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
 
-//            firstHistoryStatuses = initializeHistoryStatuses();
-//            firstHistory.setAdapter(new HistoryAdapter<S>(getBaseContext(), firstHistoryStatuses));
+            observer.reflesh();
+            firstHistory.setAdapter(observer.getAdapter(HistoryColumn.FIRST_COLUMN.getIndex()));
+            secondHistory.setAdapter(observer.getAdapter(HistoryColumn.SECOND_COLUMN.getIndex()));
+            thirdHistory.setAdapter(observer.getAdapter(HistoryColumn.THIRD_COLUMN.getIndex()));
+            forthHistory.setAdapter(observer.getAdapter(HistoryColumn.FORTH_COLUMN.getIndex()));
+            fifthHistory.setAdapter(observer.getAdapter(HistoryColumn.FIFTH_COLUMN.getIndex()));
         }
     };
 

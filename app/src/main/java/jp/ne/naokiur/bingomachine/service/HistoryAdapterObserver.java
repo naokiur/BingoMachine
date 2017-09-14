@@ -17,6 +17,14 @@ public class HistoryAdapterObserver {
     private final int maxNumber;
     private final Context context;
 
+    public HistoryAdapterObserver(int maxNumber, Context context) {
+        this.maxNumber = maxNumber;
+        this.context = context;
+
+        this.adapterMap = new HashMap<Integer, HistoryAdapter<SparseArray<HistoryItem>>>();
+        initialize();
+    }
+
     public void updateAdapters(Integer current) {
 
         HistoryColumn first = HistoryColumn.FIRST_COLUMN;
@@ -43,12 +51,12 @@ public class HistoryAdapterObserver {
 
     }
 
-    public HistoryAdapterObserver(int maxNumber, Context context) {
-        this.maxNumber = maxNumber;
-        this.context = context;
-
-        this.adapterMap = new HashMap<Integer, HistoryAdapter<SparseArray<HistoryItem>>>();
+    public void reflesh() {
         initialize();
+    }
+
+    public HistoryAdapter<SparseArray<HistoryItem>> getAdapter(int key) {
+        return adapterMap.get(key);
     }
 
     private void initialize() {
@@ -80,9 +88,5 @@ public class HistoryAdapterObserver {
                 }
             }
         });
-    }
-
-    public HistoryAdapter<SparseArray<HistoryItem>> getAdapter(int key) {
-        return adapterMap.get(key);
     }
 }

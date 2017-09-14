@@ -27,10 +27,6 @@ public class HistoryAdapter<S> extends BaseAdapter {
         this.historyStatuses = historyStatuses;
     }
 
-    private class Holder {
-        private TextView historyItem;
-    }
-
     @Override
     public int getCount() {
         return historyStatuses.size();
@@ -70,5 +66,9 @@ public class HistoryAdapter<S> extends BaseAdapter {
 
     public SparseArray<HistoryItem> getHistoryStatuses() {
         return historyStatuses;
+    }
+
+    private class Holder {
+        private TextView historyItem;
     }
 }

@@ -3,9 +3,7 @@ package jp.ne.naokiur.bingomachine.service;
 import android.content.Context;
 import android.util.SparseArray;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import jp.ne.naokiur.bingomachine.activities.HistoryAdapter;

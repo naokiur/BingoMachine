@@ -12,8 +12,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import jp.ne.naokiur.bingomachine.R;
 
 public class LoadAppActivity extends AppCompatActivity {
+    private static final int LOAD_ADVERTISEMENT = 4500;
     private InterstitialAd interstitialAd;
-    private  static final int LOAD_ADVERTISEMENT = 4500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

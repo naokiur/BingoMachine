@@ -28,7 +28,11 @@ public class FullscreenActivity extends AppCompatActivity {
     private long gameId;
     private Button reset;
     private Button rollingNumber;
-    private GridView history;
+    private GridView firstHistory;
+    private GridView secondHistory;
+    private GridView thirdHistory;
+    private GridView forthHistory;
+    private GridView fifthHistory;
     private SparseArray<HistoryItem> historyStatuses;
 
     private GestureDetector gestureDetector;
@@ -45,7 +49,7 @@ public class FullscreenActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
 
             historyStatuses = initializeHistoryStatuses();
-            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
+            firstHistory.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
         }
     };
 
@@ -70,7 +74,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 }
             }
 
-//            history.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
+            firstHistory.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
         }
     }
 
@@ -134,23 +138,23 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
-        Intent intent = getIntent();
-        gestureDetector = new GestureDetector(this, mGestureListener);
 
         TextView animation = (TextView) findViewById(R.id.animation);
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.updown);
         animator.setTarget(animation);
         animator.start();
 
+        Intent intent = getIntent();
         maxNumber = intent.getIntExtra("maxNumber", 0);
         gameId = intent.getLongExtra("gameId", 0);
-//
-////        bingo = (Button) findViewById(R.id.button_roll_bingo);
-        reset = (Button) findViewById(R.id.button_reset);
-        rollingNumber = (Button) findViewById(R.id.text_rolling_number);
-////        history = (GridView) findViewById(R.id.history);
-//        rollingNumber.setOnClickListener(rollBingoClickListener);
 
+        historyStatuses = initializeHistoryStatuses();
+
+        reset = (Button) findViewById(R.id.button_reset);
+        reset.setOnClickListener(resetClickListener);
+
+        rollingNumber = (Button) findViewById(R.id.text_rolling_number);
+        gestureDetector = new GestureDetector(this, mGestureListener);
         rollingNumber.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -158,11 +162,58 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-        reset.setOnClickListener(resetClickListener);
+        firstHistory = (GridView) findViewById(R.id.number_first_column);
+        secondHistory = (GridView) findViewById(R.id.number_second_column);
+        thirdHistory = (GridView) findViewById(R.id.number_third_column);
+        forthHistory = (GridView) findViewById(R.id.number_forth_column);
+        fifthHistory = (GridView) findViewById(R.id.number_fifth_column);
 
-        historyStatuses = initializeHistoryStatuses();
+        firstHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
+            {
+                for (int i = 1; i <= 15; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
 
-//        history.setAdapter(new HistoryAdapter(this, historyStatuses));
+            }
+        }));
+
+        secondHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
+            {
+                for (int i = 16; i <= 30; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
+
+            }
+        }));
+
+        thirdHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
+            {
+                for (int i = 31; i <= 45; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
+
+            }
+        }));
+
+        forthHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
+            {
+                for (int i = 46; i <= 60; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
+
+            }
+        }));
+
+        fifthHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
+            {
+                for (int i = 61; i <= 75; i++) {
+                    put(i, new HistoryItem(i, false));
+                }
+
+            }
+        }));
+
+//        firstHistory.setAdapter(new HistoryAdapter(this, historyStatuses));
     }
 
     private void switchEnableBingoRollButton() {

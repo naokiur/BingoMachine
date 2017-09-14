@@ -29,35 +29,40 @@
             android:background="#9E9E9E"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/number_first_column"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/default_background" />
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/number_second_column"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/default_background" />
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/number_third_column"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/default_background" />
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/number_forth_column"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/default_background" />
 
-            <LinearLayout
+            <GridView
+                android:id="@+id/number_fifth_column"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"

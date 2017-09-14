@@ -62,6 +62,7 @@ public class HistoryAdapter extends BaseAdapter {
         holder.historyItem.setText(String.valueOf(historyStatuses.get(historyStatuses.keyAt(position)).getNumber()));
         if (historyStatuses.get(historyStatuses.keyAt(position)).isDrawn()) {
             holder.historyItem.setTextColor(ContextCompat.getColor(context, R.color.drawn_item));
+            holder.historyItem.setBackgroundColor(ContextCompat.getColor(context, R.color.drawn_item_1));
         }
 
         return convertView;

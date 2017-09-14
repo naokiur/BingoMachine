@@ -7,7 +7,8 @@
     <color name="number_color">#616161</color>
     <color name="shape_title">#E0E0E0</color>
     <color name="button_reset_background">#616161</color>
-    <color name="drawn_item">#2ACA2C</color>
+    <color name="drawn_item">#E0E0E0</color>
+    <color name="drawn_item_1">#9E9E9E</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

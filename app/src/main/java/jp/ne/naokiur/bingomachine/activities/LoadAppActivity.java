@@ -37,7 +37,9 @@ public class LoadAppActivity extends AppCompatActivity {
                     requestNewInterstitial();
                 }
 
+                LoadAppActivity.this.finish();
             }
+
         }, LOAD_ADVERTISEMENT);
     }
 

@@ -87,6 +87,8 @@ public class BeginningFragment extends DialogFragment {
                 intent.putExtra("gameId", bingoGame.getGameId());
 
                 startActivity(intent);
+
+                finishThisFragment();
             }
         });
 
@@ -118,5 +120,9 @@ public class BeginningFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void finishThisFragment() {
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 }

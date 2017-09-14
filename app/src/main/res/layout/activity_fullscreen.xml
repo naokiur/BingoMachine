@@ -23,9 +23,9 @@
             android:text="Previous numbers" />
 
         <LinearLayout
-            android:layout_below="@+id/text_history_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/text_history_title"
             android:background="#9E9E9E"
             android:orientation="horizontal">
 
@@ -89,23 +89,23 @@
             android:id="@+id/text_rolling_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:background="@drawable/bingo_number_text"
             android:text="1"
             android:textAlignment="center"
             android:textColor="@color/number_color"
             android:textSize="140sp"
-            android:textStyle="bold|italic"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="↓"
-            android:textSize="40sp"
             android:layout_above="@+id/text_rolling_number"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:text="↓"
+            android:textSize="40sp" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -16,7 +16,7 @@ import jp.ne.naokiur.bingomachine.service.HistoryItem;
  * Created by nao-ur on 2017/07/23.
  */
 
-public class HistoryAdapter extends BaseAdapter {
+public class HistoryAdapter<S> extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private SparseArray<HistoryItem> historyStatuses;
@@ -66,5 +66,9 @@ public class HistoryAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    public SparseArray<HistoryItem> getHistoryStatuses() {
+        return historyStatuses;
     }
 }

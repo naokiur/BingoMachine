@@ -19,6 +19,7 @@ import java.util.List;
 
 import jp.ne.naokiur.bingomachine.R;
 import jp.ne.naokiur.bingomachine.service.BingoNumber;
+import jp.ne.naokiur.bingomachine.service.HistoryAdapterObserver;
 import jp.ne.naokiur.bingomachine.service.HistoryItem;
 import jp.ne.naokiur.bingomachine.service.dao.BingoProcessDao;
 
@@ -33,7 +34,12 @@ public class FullscreenActivity extends AppCompatActivity {
     private GridView thirdHistory;
     private GridView forthHistory;
     private GridView fifthHistory;
-    private SparseArray<HistoryItem> historyStatuses;
+    private SparseArray<HistoryItem> firstHistoryStatuses;
+    private SparseArray<HistoryItem> secondHistoryStatuses;
+    private SparseArray<HistoryItem> thirdHistoryStatuses;
+    private SparseArray<HistoryItem> forthHistoryStatuses;
+    private SparseArray<HistoryItem> fifthHistoryStatuses;
+    private HistoryAdapterObserver observer;
 
     private GestureDetector gestureDetector;
 
@@ -48,8 +54,8 @@ public class FullscreenActivity extends AppCompatActivity {
             switchEnableBingoRollButton();
             ((TextView) findViewById(R.id.text_rolling_number)).setText("");
 
-            historyStatuses = initializeHistoryStatuses();
-            firstHistory.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
+//            firstHistoryStatuses = initializeHistoryStatuses();
+//            firstHistory.setAdapter(new HistoryAdapter<S>(getBaseContext(), firstHistoryStatuses));
         }
     };
 
@@ -68,13 +74,14 @@ public class FullscreenActivity extends AppCompatActivity {
             List<Integer> currentBingo = bingoProcessDao.selectByGameId(gameId);
 
             for (Integer current : currentBingo) {
-                // If historyStatuses does not have 'current' as their key, indexOfKey() will return '-1'.
-                if (historyStatuses.indexOfKey(current) >= 0) {
-                    historyStatuses.get(current).setDrawn(true);
-                }
+                observer.updateAdapters(current);
             }
 
-            firstHistory.setAdapter(new HistoryAdapter(getBaseContext(), historyStatuses));
+            firstHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FIRST_COLUMN.getIndex()));
+            secondHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.SECOND_COLUMN.getIndex()));
+            thirdHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.THIRD_COLUMN.getIndex()));
+            forthHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FORTH_COLUMN.getIndex()));
+            fifthHistory.setAdapter(observer.getAdapter(HistoryAdapterObserver.HistoryColumn.FIFTH_COLUMN.getIndex()));
         }
     }
 
@@ -148,7 +155,7 @@ public class FullscreenActivity extends AppCompatActivity {
         maxNumber = intent.getIntExtra("maxNumber", 0);
         gameId = intent.getLongExtra("gameId", 0);
 
-        historyStatuses = initializeHistoryStatuses();
+        firstHistoryStatuses = initializeHistoryStatuses();
 
         reset = (Button) findViewById(R.id.button_reset);
         reset.setOnClickListener(resetClickListener);
@@ -167,53 +174,14 @@ public class FullscreenActivity extends AppCompatActivity {
         thirdHistory = (GridView) findViewById(R.id.number_third_column);
         forthHistory = (GridView) findViewById(R.id.number_forth_column);
         fifthHistory = (GridView) findViewById(R.id.number_fifth_column);
+        observer = new HistoryAdapterObserver(maxNumber, this);
 
-        firstHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
-            {
-                for (int i = 1; i <= 15; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
+        firstHistory.setAdapter(observer.getAdapter(1));
+        secondHistory.setAdapter(observer.getAdapter(2));
+        thirdHistory.setAdapter(observer.getAdapter(3));
+        forthHistory.setAdapter(observer.getAdapter(4));
+        fifthHistory.setAdapter(observer.getAdapter(5));
 
-            }
-        }));
-
-        secondHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
-            {
-                for (int i = 16; i <= 30; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
-
-            }
-        }));
-
-        thirdHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
-            {
-                for (int i = 31; i <= 45; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
-
-            }
-        }));
-
-        forthHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
-            {
-                for (int i = 46; i <= 60; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
-
-            }
-        }));
-
-        fifthHistory.setAdapter(new HistoryAdapter(this, new SparseArray<HistoryItem>() {
-            {
-                for (int i = 61; i <= 75; i++) {
-                    put(i, new HistoryItem(i, false));
-                }
-
-            }
-        }));
-
-//        firstHistory.setAdapter(new HistoryAdapter(this, historyStatuses));
     }
 
     private void switchEnableBingoRollButton() {

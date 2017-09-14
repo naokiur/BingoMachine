@@ -82,9 +82,11 @@ public class HistoryAdapterObserver {
 
         return new HistoryAdapter<SparseArray<HistoryItem>>(context, new SparseArray<HistoryItem>() {
             {
-                for (int i = begin; i <= end; i++) {
-                    put(i, new HistoryItem(i, false));
+                if (maxNumber >= begin) {
+                    for (int i = begin; i <= end; i++) {
+                        put(i, new HistoryItem(i, false));
 
+                    }
                 }
             }
         });

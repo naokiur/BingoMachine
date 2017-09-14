@@ -18,20 +18,27 @@ public class HistoryAdapterObserver {
     private final Context context;
 
     public void updateAdapters(Integer current) {
-        if (HistoryColumn.FIRST_COLUMN.isRange(current)) {
-            adapterMap.get(HistoryColumn.FIRST_COLUMN.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
 
-        } else if (HistoryColumn.SECOND_COLUMN.isRange(current)) {
-            adapterMap.get(HistoryColumn.SECOND_COLUMN.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+        HistoryColumn first = HistoryColumn.FIRST_COLUMN;
+        HistoryColumn second = HistoryColumn.SECOND_COLUMN;
+        HistoryColumn third = HistoryColumn.THIRD_COLUMN;
+        HistoryColumn forth = HistoryColumn.FORTH_COLUMN;
+        HistoryColumn fifth = HistoryColumn.FIFTH_COLUMN;
 
-        } else if (HistoryColumn.THIRD_COLUMN.isRange(current)) {
-            adapterMap.get(HistoryColumn.THIRD_COLUMN.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+        if (first.isRange(current)) {
+            adapterMap.get(first.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
 
-        } else if (HistoryColumn.FORTH_COLUMN.isRange(current)) {
-            adapterMap.get(HistoryColumn.FORTH_COLUMN.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+        } else if (second.isRange(current)) {
+            adapterMap.get(second.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
 
-        } else if (HistoryColumn.FIFTH_COLUMN.isRange(current)) {
-            adapterMap.get(HistoryColumn.FIFTH_COLUMN.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+        } else if (third.isRange(current)) {
+            adapterMap.get(third.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+
+        } else if (forth.isRange(current)) {
+            adapterMap.get(forth.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
+
+        } else if (fifth.isRange(current)) {
+            adapterMap.get(fifth.getIndex()).getHistoryStatuses().get(current).setDrawn(true);
         }
 
     }

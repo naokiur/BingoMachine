@@ -87,6 +87,9 @@ public class BeginningFragment extends DialogFragment {
                 intent.putExtra("gameId", bingoGame.getGameId());
 
                 startActivity(intent);
+
+                // If User close FullscreenActivity.class, finishThisFragment() can prevent from reopening this fragment.
+                finishThisFragment();
             }
         });
 
@@ -118,5 +121,9 @@ public class BeginningFragment extends DialogFragment {
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void finishThisFragment() {
+        getFragmentManager().beginTransaction().remove(this).commit();
     }
 }

@@ -10,17 +10,12 @@ public enum BingoProcessTable implements BaseColumns {
     GAME_ID(1),
     VALUE(2);
 
+    public static final String NAME = "BINGO_PROCESS";
     private Integer columnNo;
 
     BingoProcessTable(Integer columnNo) {
         this.columnNo = columnNo;
     }
-
-    public Integer getColumnNo() {
-        return columnNo;
-    }
-
-    public static final String NAME = "BINGO_PROCESS";
 
     public static String generateCreateTable() {
         return "CREATE TABLE "
@@ -29,5 +24,9 @@ public enum BingoProcessTable implements BaseColumns {
                 + GAME_ID + " INTEGER,"
                 + VALUE + " INTEGER" +
                 ")";
+    }
+
+    public Integer getColumnNo() {
+        return columnNo;
     }
 }

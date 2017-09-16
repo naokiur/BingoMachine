@@ -16,7 +16,7 @@ import jp.ne.naokiur.bingomachine.service.HistoryItem;
  * Created by nao-ur on 2017/07/23.
  */
 
-public class HistoryAdapter extends BaseAdapter {
+public class HistoryAdapter<S> extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private SparseArray<HistoryItem> historyStatuses;
@@ -25,10 +25,6 @@ public class HistoryAdapter extends BaseAdapter {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(this.context);
         this.historyStatuses = historyStatuses;
-    }
-
-    private class Holder {
-        private TextView historyItem;
     }
 
     @Override
@@ -62,8 +58,17 @@ public class HistoryAdapter extends BaseAdapter {
         holder.historyItem.setText(String.valueOf(historyStatuses.get(historyStatuses.keyAt(position)).getNumber()));
         if (historyStatuses.get(historyStatuses.keyAt(position)).isDrawn()) {
             holder.historyItem.setTextColor(ContextCompat.getColor(context, R.color.drawn_item));
+            holder.historyItem.setBackgroundColor(ContextCompat.getColor(context, R.color.drawn_item_1));
         }
 
         return convertView;
+    }
+
+    public SparseArray<HistoryItem> getHistoryStatuses() {
+        return historyStatuses;
+    }
+
+    private class Holder {
+        private TextView historyItem;
     }
 }

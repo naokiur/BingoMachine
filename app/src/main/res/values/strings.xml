@@ -1,22 +1,26 @@
 <resources>
     <string name="app_name">BingoMachine</string>
     <string name="bingo_roll">ビンゴロール</string>
-    <string name="reset">リセット</string>
+    <string name="reset">Reset BINGO</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="button_new_game">はじめから</string>
-    <string name="text_app_title">ビンゴ</string>
-    <string name="text_bingo_title">タイトル</string>
+    <string name="button_new_game">START</string>
+    <string name="button_resume">つづきから</string>
+    <string name="text_app_title_B">B</string>
+    <string name="text_app_title_I">I</string>
+    <string name="text_app_title_N">N</string>
+    <string name="text_app_title_G">G</string>
+    <string name="text_app_title_O">O</string>
+    <string name="text_bingo_title">Title</string>
     <string name="text_max_number">最大番号</string>
     <string name="message_error_invalid_max_number">Need to input number smaller than 75.</string>
     <string name="message_error_max_size_title">Need to input title smaller than 100.</string>
     <string name="message_error_mandatory_title">Need to input title.</string>
-    <string name="button_resume">つづきから</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_load_app">LoadAppActivity</string>
-    <string name="button_begin_new_game">はじめる</string>
-    <string name="text_fragment_title">新しいビンゴをはじめます</string>
-    <string name="description_edit_text_title">タイトル</string>
-    <string name="description_edit_max_number">最大番号</string>
+    <string name="button_begin_new_game">OK</string>
+    <string name="text_fragment_title">Start New BINGO Game</string>
+    <string name="description_edit_text_title">Title</string>
+    <string name="description_edit_max_number">Max BINGO number</string>
 </resources>

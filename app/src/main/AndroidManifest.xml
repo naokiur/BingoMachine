@@ -29,14 +29,20 @@
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Translucent" />
-        <activity android:name=".activities.InitialActivity" />
-        <activity android:name=".activities.LoadAppActivity">
+        <activity
+            android:name=".activities.InitialActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.LoadAppActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
